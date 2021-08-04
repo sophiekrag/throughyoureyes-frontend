@@ -10,8 +10,8 @@ const Button = ({ onClick, children, type = "button" }) => {
 };
 
 const MainButton = styled.button`
-  color: ${(props) => (props.secondary ? "gray" : "white")};
-  background-color: ${(props) => (props.secondary ? "white" : "gray")};
+  color: white;
+  background-color: gray;
   border-radius: 4px;
   font-size: 1em;
   padding: 1em;
@@ -19,8 +19,8 @@ const MainButton = styled.button`
   border: none;
   box-shadow: 10px 0px 14px -7px black;
   &:hover {
-    color: ${(props) => (props.secondary ? "white" : "gray")};
-    background-color: ${(props) => (props.secondary ? "gray" : "white")};
+    color: gray;
+    background-color: white;
   }
 `;
 
