@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-const FieldSet = ({ children, title }) => {
+const FieldSet = ({ title, children }) => {
  return (
      <Container>
      <Title>{title}</Title>
@@ -17,14 +17,14 @@ const Container = styled.form`
     flex-direction: column;
     width: 50%;
     background-color: orange;
-    padding: 1.5em 2em;
+    padding: 1.5rem 2rem;
     border: 2px solid gray;
 `
 
 const Title = styled.h2`
     display: flex;
     justify-content: center;
-    font-size: 2em;
+    font-size: 2rem;
 `
 
 export default FieldSet

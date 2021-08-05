@@ -17,11 +17,11 @@ const Input = ({ placeholder, name, type = "text", required, onChange, value}) =
 const FormInput = styled.input`
     color: rgba(0, 0, 0);
     width: 80%;
-    font-size: 1em;
+    font-size: 1rem;
     border: 2px solid gray;
     border-radius: 3px;
-    margin: 1em;
-    padding: 1em;
+    margin: 1rem;
+    padding: 1rem;
 `
 
 export default Input;

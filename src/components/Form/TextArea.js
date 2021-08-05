@@ -17,11 +17,11 @@ const FormTextArea = styled.textarea`
     color: rgba(0, 0, 0);
     width: 60%;
     height: 25vh;
-    font-size: 1em;
+    font-size: 1rem;
     border: 2px solid gray;
     border-radius: 3px;
-    margin: 1em;
-    padding: 1em;
+    margin: 1rem;
+    padding: 1rem;
 `
 
 export default TextArea;
