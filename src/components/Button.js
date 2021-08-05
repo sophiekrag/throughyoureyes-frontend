@@ -13,9 +13,9 @@ const MainButton = styled.button`
   color: white;
   background-color: gray;
   border-radius: 4px;
-  font-size: 1em;
-  padding: 1em;
-  margin: 1em;
+  font-size: 1rem;
+  padding: 1rem;
+  margin: 1rem;
   border: none;
   box-shadow: 10px 0px 14px -7px black;
   &:hover {
