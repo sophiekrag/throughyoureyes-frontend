@@ -10,7 +10,7 @@ const FieldSet = ({ title, children }) => {
  )
 }
 
-const Container = styled.form`
+const Container = styled.fieldset`
     display: flex;
     justify-content: center;
     align-items: center;
