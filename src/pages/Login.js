@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import baseURL from "../utils/AxiosApi";
+import axiosApi from "../utils/AxiosApi";
 
 import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
 import catchErrors from "../utils/catchErrors";
+import { handleLogin } from "../utils/auth"
 
 const INITIAL_USER = {
   email: "",
@@ -33,10 +34,10 @@ const Login = () => {
     try {
       setLoading(true);
       setError("");
-      const response = await baseURL.post("login", {
+      const response = await axiosApi.post("login", {
         userData: user
       })
-      console.log("Data", response.data);
+      handleLogin(response.data);
     } catch (error) {
       catchErrors(error, setError);
     } finally {
