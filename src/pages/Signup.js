@@ -6,6 +6,7 @@ import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
 import catchErrors from "../utils/catchErrors";
+import { handleLogin } from "../utils/auth"
 
 const INITIAL_USER = {
   username: "",
@@ -37,7 +38,7 @@ const Signup = () => {
       const response = await baseURL.post("signup", {
         userData: user
       })
-      console.log("Data", response.data);
+      handleLogin(response.data);
     } catch (error) {
       catchErrors(error, setError);
     } finally {
