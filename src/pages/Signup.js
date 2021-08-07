@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import baseURL from "../utils/AxiosApi";
+import axiosApi from "../utils/AxiosApi";
 
 import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
@@ -35,7 +35,7 @@ const Signup = () => {
     try {
       setLoading(true);
       setError("");
-      const response = await baseURL.post("signup", {
+      const response = await axiosApi.post("signup", {
         userData: user
       })
       handleLogin(response.data);
