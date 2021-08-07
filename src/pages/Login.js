@@ -46,7 +46,7 @@ const Login = () => {
   };
 
   return (
-    <form error={Boolean(error)} loading={loading} onSubmit={handleOnSubmit}>
+    <form onSubmit={handleOnSubmit}>
       <FieldSet title="Login">
         <Input
           placeholder="Email"
