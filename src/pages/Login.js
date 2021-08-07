@@ -23,7 +23,7 @@ const Login = () => {
     const isUser = Object.values(user).every((el) => Boolean(el));
     isUser ? setDisabled(false) : setDisabled(true);
   }, [user]);
-  
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUser((prevState) => ({ ...prevState, [name]: value }));
