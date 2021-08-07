@@ -67,9 +67,9 @@ const Home = () => {
         </ContainerChild>
         <ContainerChild>
             <h2>Start Now</h2>
-            <Button>Login</Button>
+            <Button to="/login">Login</Button>
             <p>or</p>
-            <Button>singup</Button>
+            <Button to="/signup">Singup</Button>
         </ContainerChild>
       </Container>
     </>
