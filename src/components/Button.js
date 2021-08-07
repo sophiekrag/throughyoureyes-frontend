@@ -21,6 +21,9 @@ const MainButton = styled.button`
   &:hover {
     color: gray;
     background-color: white;
+  };
+  &:disabled, button[disabled] {
+    background-color: orange;
   }
 `;
 

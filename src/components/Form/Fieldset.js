@@ -15,10 +15,8 @@ const Container = styled.fieldset`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 50%;
-    background-color: orange;
     padding: 1.5rem 2rem;
-    border: 2px solid gray;
+    border: 10px solid gray;
 `
 
 const Title = styled.h2`
