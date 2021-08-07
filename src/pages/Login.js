@@ -8,12 +8,11 @@ import Button from "../components/Button";
 import catchErrors from "../utils/catchErrors";
 
 const INITIAL_USER = {
-  username: "",
   email: "",
   password: "",
 };
 
-const Signup = () => {
+const Login = () => {
   const [user, setUser] = useState(INITIAL_USER);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -34,7 +33,7 @@ const Signup = () => {
     try {
       setLoading(true);
       setError("");
-      const response = await baseURL.post("signup", {
+      const response = await baseURL.post("login", {
         userData: user
       })
       console.log("Data", response.data);
@@ -47,13 +46,7 @@ const Signup = () => {
 
   return (
     <form error={Boolean(error)} loading={loading} onSubmit={handleOnSubmit}>
-      <FieldSet title="Signup">
-        <Input
-          placeholder="Username"
-          name="username"
-          required="required"
-          onChange={handleChange}
-        />
+      <FieldSet title="Login">
         <Input
           placeholder="Email"
           name="email"
@@ -78,4 +71,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
