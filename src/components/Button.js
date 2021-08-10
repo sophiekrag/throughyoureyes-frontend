@@ -22,12 +22,13 @@ const MainButton = styled.button`
   border: none;
   box-shadow: 10px 0px 14px -7px black;
   text-decoration: none;
-  font-family: arial;
+  font-family: arial, sans-serif;
+  cursor: pointer;
   &:hover {
     color: gray;
     background-color: white;
   };
-  &:disabled, button[disabled] {
+  &:disabled {
     background-color: orange;
   }
 `;

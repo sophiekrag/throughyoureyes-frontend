@@ -14,7 +14,7 @@ const TextArea = ({ name, placeholder, required, onChange, value}) => {
 };
 
 const FormTextArea = styled.textarea`
-    color: rgba(0, 0, 0);
+    color: black;
     width: 60%;
     height: 25vh;
     font-size: 1rem;

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import axiosApi from "../utils/AxiosApi";
+import axiosApi from "../src/utils/AxiosApi";
 
-import FieldSet from "../components/Form/Fieldset";
-import Input from "../components/Form/Input";
-import Button from "../components/Button";
-import catchErrors from "../utils/catchErrors";
-import { handleLogin } from "../utils/auth"
+import FieldSet from "../src/components/Form/Fieldset";
+import Input from "../src/components/Form/Input";
+import Button from "../src/components/Button";
+import catchErrors from "../src/utils/catchErrors";
+import { handleLogin } from "../src/utils/auth"
 
 const INITIAL_USER = {
   username: "",
