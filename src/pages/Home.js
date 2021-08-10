@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import diary from "../img/diary.jpeg";
 import Button from "../components/Button"
+import LoginSignup from "./LoginSignup";
 
 const Home = () => {
+  const [loginToggle, setLoginToggle] = useState(true)
+
   return (
     <>
       <Header>
@@ -66,10 +69,10 @@ const Home = () => {
           </p>
         </ContainerChild>
         <ContainerChild>
-            <h2>Start Now</h2>
-            <Button to="/login">Login</Button>
-            <p>or</p>
-            <Button to="/signup">Singup</Button>
+        <LoginSignup isPageLogin={loginToggle}/>
+            <Button onClick={() => setLoginToggle(prevState => !prevState)}>
+            {loginToggle ? "Signup" : "Login"}
+            </Button>
         </ContainerChild>
       </Container>
     </>
@@ -96,7 +99,7 @@ const Container = styled.section`
 const ContainerChild = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   width: 50%;
 `;

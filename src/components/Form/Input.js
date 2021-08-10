@@ -15,8 +15,8 @@ const Input = ({ placeholder, name, type = "text", required, onChange, value}) =
 };
 
 const FormInput = styled.input`
-    color: rgba(0, 0, 0);
-    width: 80%;
+    color: #000;
+    width: 60%;
     font-size: 1rem;
     border: 2px solid gray;
     border-radius: 3px;

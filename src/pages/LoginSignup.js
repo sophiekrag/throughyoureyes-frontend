@@ -6,22 +6,29 @@ import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
 import catchErrors from "../utils/catchErrors";
-import { handleLogin } from "../utils/auth"
+import { handleLogin } from "../utils/auth";
 
 const INITIAL_USER = {
   email: "",
   password: "",
 };
 
-const Login = () => {
-  const [user, setUser] = useState(INITIAL_USER);
+const INIT_SIGNUP_USER = {
+  username: "",
+};
+
+const LoginSignup = ({ isPageLogin = false }) => {
+  const [user, setUser] = useState({
+    ...INITIAL_USER,
+    ...(!isPageLogin && INIT_SIGNUP_USER),
+  });
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const isUser = Object.values(user).every((el) => Boolean(el));
-    isUser ? setDisabled(false) : setDisabled(true);
+    setDisabled(!isUser);
   }, [user]);
 
   const handleChange = (event) => {
@@ -30,13 +37,14 @@ const Login = () => {
   };
 
   const handleOnSubmit = async (event) => {
+    const postVariant = isPageLogin ? "login" : "signup";
     event.preventDefault();
     try {
       setLoading(true);
       setError("");
-      const response = await axiosApi.post("login", {
-        userData: user
-      })
+      const response = await axiosApi.post(postVariant, {
+        userData: user,
+      });
       handleLogin(response.data);
     } catch (error) {
       catchErrors(error, setError);
@@ -47,7 +55,15 @@ const Login = () => {
 
   return (
     <form onSubmit={handleOnSubmit}>
-      <FieldSet title="Login">
+      <FieldSet title={isPageLogin ? "Login" : "Signup"}>
+        {!isPageLogin && (
+          <Input
+            placeholder="Username"
+            name="username"
+            required="required"
+            onChange={handleChange}
+          />
+        )}
         <Input
           placeholder="Email"
           name="email"
@@ -72,4 +88,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginSignup;
