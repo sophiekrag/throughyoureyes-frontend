@@ -27,6 +27,7 @@ const NavBar = () => {
 const Container = styled.section`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
 const NavUl = styled.ul`
@@ -34,7 +35,6 @@ const NavUl = styled.ul`
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: ;
   align-items: center;
 `;
 
