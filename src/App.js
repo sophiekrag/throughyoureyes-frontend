@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Account from "./pages/Account";
 import LoginSignup from "./pages/LoginSignup";
+import ChildLogin from "./pages/ChildLogin";
 
 const App = () => {
   return (
@@ -19,6 +20,9 @@ const App = () => {
         </Route>
         <Route path="/account">
           <Account />
+        </Route>
+        <Route path="/child/login">
+          <ChildLogin />
         </Route>
       </Switch>
     </Router>
