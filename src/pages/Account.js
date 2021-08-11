@@ -7,6 +7,7 @@ import NavBar from "../components/NavBar";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
 import FieldSet from "../components/Form/Fieldset";
+import catchErrors from "../utils/catchErrors";
 
 const INITIAL_CHILD = {
   firstname: "",
@@ -22,12 +23,25 @@ const Account = () => {
 
   useEffect(() => {
     const isChild = Object.values(child).every((el) => Boolean(el));
-    setDisabled(!isChild)
+    setDisabled(!isChild);
   }, [child]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setChild((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleFindChild = async (event) => {
+    event.preventDefault();
+    try {
+      setLoading(true);
+      const response = await axiosApi.get("findChild");
+      console.log(response);
+    } catch (error) {
+      catchErrors(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleOnSubmit = async (event) => {
@@ -39,7 +53,7 @@ const Account = () => {
       });
       console.log(response);
     } catch (error) {
-      console.log(error);
+      catchErrors(error);
     } finally {
       setLoading(false);
     }
@@ -49,8 +63,12 @@ const Account = () => {
     <>
       <NavBar />
       <Container>
-        <form>
-          <Input placeholder="Connect to child" name="connect" />
+        <form onSubmit={handleFindChild}>
+          <Input
+            placeholder="Connect to child"
+            name="connect"
+            onChange={handleChange}
+          />
           <Button type="submit">Connect</Button>
         </form>
         <form onSubmit={handleOnSubmit}>
@@ -67,7 +85,7 @@ const Account = () => {
               required="required"
               onChange={handleChange}
             />
-             <Input
+            <Input
               placeholder="Username"
               name="username"
               required="required"
@@ -80,7 +98,9 @@ const Account = () => {
               required="required"
               onChange={handleChange}
             />
-            <Button disabled={disabled || loading} type="submit">Submit</Button>
+            <Button disabled={disabled || loading} type="submit">
+              Submit
+            </Button>
           </FieldSet>
         </form>
       </Container>
