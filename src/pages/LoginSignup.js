@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import axiosApi from "../utils/AxiosApi";
+import { Redirect } from "react-router-dom";
 
 import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
@@ -25,6 +26,7 @@ const LoginSignup = ({ isPageLogin = false }) => {
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [redirect, setRedirect] = useState(false)
 
   useEffect(() => {
     const isUser = Object.values(user).every((el) => Boolean(el));
@@ -46,6 +48,7 @@ const LoginSignup = ({ isPageLogin = false }) => {
         userData: user,
       });
       handleLogin(response.data);
+      setRedirect(true)
     } catch (error) {
       catchErrors(error, setError);
     } finally {
@@ -53,6 +56,10 @@ const LoginSignup = ({ isPageLogin = false }) => {
     }
   };
 
+  if (redirect) {
+    return <Redirect to="/account"/>
+  }
+  
   return (
     <form onSubmit={handleOnSubmit}>
       <FieldSet title={isPageLogin ? "Login" : "Signup"}>
