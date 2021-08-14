@@ -19,7 +19,7 @@ const Account = () => {
   const [child, setChild] = useState(INITIAL_CHILD);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState(null)
+  const [id, setId] = useState(null);
 
   useEffect(() => {
     const isChild = Object.values(child).every((el) => Boolean(el));
@@ -35,12 +35,9 @@ const Account = () => {
     event.preventDefault();
     try {
       setLoading(true);
-     
-      const response = await axiosApi.post("findChild", {
-        id
+      await axiosApi.post("findChild", {
+        id,
       });
-      console.log(response)
-      
     } catch (error) {
       console.log(error);
     } finally {
@@ -48,7 +45,6 @@ const Account = () => {
     }
   };
 
-  console.log(id)
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -58,7 +54,7 @@ const Account = () => {
       });
       console.log(response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -72,7 +68,7 @@ const Account = () => {
           <Input
             placeholder="Connect to child"
             name="id"
-            onChange={(e)=> setId(e.target.value)}
+            onChange={(e) => setId(e.target.value)}
           />
           <Button type="submit">Connect</Button>
         </form>
