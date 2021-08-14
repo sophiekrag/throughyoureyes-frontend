@@ -35,7 +35,7 @@ const AccountIndex = () => {
               <Card
                 key={child._id}
                 title={child.username}
-                text={child.firstname}
+                text={`${child.firstname} ${child.lastname}`}
                 onClick={handleOnClick}
                 button="Create story"
               />
