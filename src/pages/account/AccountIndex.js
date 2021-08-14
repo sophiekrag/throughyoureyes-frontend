@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import AxioxApi from "../../utils/AxiosApi";
 
-const MyChildren = () => {
+import AxioxApi from "../../utils/AxiosApi";
+import NavBar from "../../components/NavBar";
+
+const AccountIndex = () => {
   const [myChildren, setMyChildren] = useState([]);
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const MyChildren = () => {
 
   return (
       <>
+      <NavBar/>
       {myChildren.length > 0 && myChildren.map((child) => (
           <p key={child.id}>{child.username}</p>
       ))}
@@ -24,4 +26,4 @@ const MyChildren = () => {
   );
 };
 
-export default MyChildren;
+export default AccountIndex;

@@ -15,7 +15,7 @@ const INITIAL_CHILD = {
   password: "",
 };
 
-const Account = () => {
+const CreateConnect = () => {
   const [child, setChild] = useState(INITIAL_CHILD);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -113,4 +113,4 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
 `;
-export default Account;
+export default CreateConnect;
