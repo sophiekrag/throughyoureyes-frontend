@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Account from "./pages/account/Account";
+import CreateConnect from "./pages/account/CreateConnect";
 import LoginSignup from "./pages/LoginSignup";
 import ChildLogin from "./pages/ChildLogin";
-import MyChildren from "./pages/account/MyChildren";
+import AccountIndex from "./pages/account/AccountIndex";
 
 const App = () => {
   return (
@@ -20,10 +20,10 @@ const App = () => {
           <LoginSignup />
         </Route>
         <Route path="/account">
-          <Account />
+          <AccountIndex/>
         </Route>
-        <Route path="/myChildren">
-          <MyChildren/>
+        <Route path="/create-connect">
+          <CreateConnect />
         </Route>
         <Route path="/child/login">
           <ChildLogin />

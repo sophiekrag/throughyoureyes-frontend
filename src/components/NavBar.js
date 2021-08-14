@@ -13,7 +13,7 @@ const NavBar = () => {
           <StyledLink to="/account">Home</StyledLink>
         </li>
         <li>
-          <StyledLink to="/account/children">My Children</StyledLink>
+          <StyledLink to="/create-connect">My Children</StyledLink>
         </li>
         <li>
           <StyledLink to="/account/stories">Stories</StyledLink>
