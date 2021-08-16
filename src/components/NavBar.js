@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import axiosApi from "../utils/AxiosApi";
 
 import Button from "./Button";
-import { handleLogout } from "../utils/auth";
 
 const NavBar = () => {
+  const [redirect, setRedirect] = useState(false)
+
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    try{
+      await axiosApi.post("logout")
+      setRedirect(true)
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <Container>
       <NavUl>
@@ -19,7 +35,9 @@ const NavBar = () => {
           <StyledLink to="/account/stories">Stories</StyledLink>
         </li>
       </NavUl>
-      <Button onClick={() => handleLogout()}>Logout</Button>
+      <form onSubmit={handleLogout}>
+        <Button type="submit">Logout</Button>
+      </form>
     </Container>
   );
 };
