@@ -5,6 +5,7 @@ import CreateConnect from "./pages/account/CreateConnect";
 import LoginSignup from "./pages/LoginSignup";
 import ChildLogin from "./pages/ChildLogin";
 import AccountIndex from "./pages/account/AccountIndex";
+import CreateStory from "./pages/account/CreateStory";
 
 const App = () => {
   return (
@@ -24,6 +25,9 @@ const App = () => {
         </Route>
         <Route path="/create-connect">
           <CreateConnect />
+        </Route>
+        <Route path="/create-story">
+          <CreateStory />
         </Route>
         <Route path="/child/login">
           <ChildLogin />
