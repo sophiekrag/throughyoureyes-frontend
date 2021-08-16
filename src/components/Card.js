@@ -1,14 +1,14 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Button from "../components/Button";
 
-const Card = ({ img, title, text, creator, buttonText, onClick }) => {
+const Card = ({ img, title = "", creator, buttonText, onClick, children }) => {
   return (
     <CardContainer>
       {img && <CardImg src={img} alt={title} />}
       {title && <CardTitle>{title}</CardTitle>}
-      {text && <CardText>{text}</CardText>}
+      {children && <CardText>{children}</CardText>}
       {creator && <CardCreator>{creator}</CardCreator>}
       {buttonText && <Button onClick={onClick}>{buttonText}</Button>}
     </CardContainer>
@@ -28,20 +28,18 @@ const CardImg = styled.img`
   object-fit: cover;
 `;
 
-const CardTitle = styled.h2`
-  margin: 10px;
-  padding: 10px;
-`;
-const CardText = styled.p`
+const textStyle = css`
   margin: 10px;
   padding: 10px;
 `;
 
+const CardTitle = styled.h2(textStyle);
+const CardText = styled.p(textStyle);
+
 const CardCreator = styled.p`
   color: gray;
   font-size: 0.8rem;
-  margin: 10px;
-  padding: 10px;
+  ${textStyle}
 `;
 
 export default Card;

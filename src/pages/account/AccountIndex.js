@@ -7,7 +7,7 @@ import Card from "../../components/Card";
 
 const AccountIndex = () => {
   const [myChildren, setMyChildren] = useState([]);
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -19,11 +19,11 @@ const AccountIndex = () => {
   }, []);
 
   const handleOnClick = () => {
-    setRedirect(true)
-  }
+    setRedirect(true);
+  };
 
   if (redirect) {
-    return <Redirect to="/create-story"/>
+    return <Redirect to="/create-story" />;
   }
 
   return (
@@ -32,13 +32,14 @@ const AccountIndex = () => {
       <Container>
         {myChildren.length > 0 &&
           myChildren.map((child) => (
-              <Card
-                key={child._id}
-                title={child.username}
-                text={`${child.firstname} ${child.lastname}`}
-                onClick={handleOnClick}
-                buttonText="Create story"
-              />
+            <Card
+              key={child._id}
+              title={child.username}
+              onClick={handleOnClick}
+              buttonText="Create story"
+            >
+              {child.firstname} {child.lastname}
+            </Card>
           ))}
       </Container>
     </>
