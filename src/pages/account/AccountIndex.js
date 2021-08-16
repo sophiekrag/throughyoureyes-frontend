@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
-import AxioxApi from "../../utils/AxiosApi";
+import AxiosApi from "../../utils/AxiosApi";
 import NavBar from "../../components/NavBar";
 import Card from "../../components/Card";
 
@@ -11,7 +11,7 @@ const AccountIndex = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const result = await AxioxApi("myChildren");
+      const result = await AxiosApi("myChildren");
       const usersChildren = await result.data.children;
       setMyChildren([...usersChildren]);
     };
@@ -37,7 +37,7 @@ const AccountIndex = () => {
                 title={child.username}
                 text={`${child.firstname} ${child.lastname}`}
                 onClick={handleOnClick}
-                button="Create story"
+                buttonText="Create story"
               />
           ))}
       </Container>

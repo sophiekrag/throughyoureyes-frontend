@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 import Button from "../components/Button";
 
-const Card = ({ img, title, text, creator, button, onClick }) => {
+const Card = ({ img, title, text, creator, buttonText, onClick }) => {
   return (
     <CardContainer>
       {img && <CardImg src={img} alt={title} />}
       {title && <CardTitle>{title}</CardTitle>}
       {text && <CardText>{text}</CardText>}
       {creator && <CardCreator>{creator}</CardCreator>}
-      {button && <Button onClick={onClick}>{button}</Button>}
+      {buttonText && <Button onClick={onClick}>{buttonText}</Button>}
     </CardContainer>
   );
 };
@@ -29,18 +29,15 @@ const CardImg = styled.img`
 `;
 
 const CardTitle = styled.h2`
-  width: 80%;
   margin: 10px;
   padding: 10px;
 `;
 const CardText = styled.p`
-  width: 80%;
   margin: 10px;
   padding: 10px;
 `;
 
 const CardCreator = styled.p`
-  width: 80%;
   color: gray;
   font-size: 0.8rem;
   margin: 10px;
