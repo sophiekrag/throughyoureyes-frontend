@@ -6,7 +6,6 @@ import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
 import catchErrors from "../utils/catchErrors";
-import { handleLogin } from "../utils/auth"
 
 const INITIAL_CHILD = {
   username: "",
@@ -20,7 +19,7 @@ const ChildLogin = () => {
 
   useEffect(() => {
     const isChild = Object.values(child).every((el) => Boolean(el));
-    setDisabled(!isChild)
+    setDisabled(!isChild);
   }, [child]);
 
   const handleChange = (event) => {
@@ -32,10 +31,9 @@ const ChildLogin = () => {
     event.preventDefault();
     try {
       setLoading(true);
-      const response = await axiosApi.post("child/login", {
-        childData: child
-      })
-      handleLogin(response.data);
+      await axiosApi.post("child/login", {
+        childData: child,
+      });
     } catch (error) {
       catchErrors(error);
     } finally {

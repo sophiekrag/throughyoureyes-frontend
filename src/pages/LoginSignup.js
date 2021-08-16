@@ -7,7 +7,6 @@ import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
 import catchErrors from "../utils/catchErrors";
-import { handleLogin } from "../utils/auth";
 
 const INITIAL_USER = {
   email: "",
@@ -26,7 +25,7 @@ const LoginSignup = ({ isPageLogin = false }) => {
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const isUser = Object.values(user).every((el) => Boolean(el));
@@ -44,11 +43,10 @@ const LoginSignup = ({ isPageLogin = false }) => {
     try {
       setLoading(true);
       setError("");
-      const response = await axiosApi.post(postVariant, {
+      await axiosApi.post(postVariant, {
         userData: user,
       });
-      handleLogin(response.data);
-      setRedirect(true)
+      setRedirect(true);
     } catch (error) {
       catchErrors(error, setError);
     } finally {
@@ -57,9 +55,9 @@ const LoginSignup = ({ isPageLogin = false }) => {
   };
 
   if (redirect) {
-    return <Redirect to="/account"/>
+    return <Redirect to="/account" />;
   }
-  
+
   return (
     <form onSubmit={handleOnSubmit}>
       <FieldSet title={isPageLogin ? "Login" : "Signup"}>
