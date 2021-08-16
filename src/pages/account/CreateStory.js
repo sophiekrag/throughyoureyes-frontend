@@ -14,12 +14,11 @@ const INITIAL_STORY = {
   media: "",
   description: "",
 };
-const cloudinaryUrl = "https://api.cloudinary.com/v1_1/denytmwxi/image/upload";
-const preset = "reactreserve";
 
 const CreateStory = () => {
   const [story, setStory] = useState(INITIAL_STORY);
   const [mediaPreview, setMediaPreview] = useState("");
+  const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
   const handleChange = (event) => {
@@ -32,34 +31,36 @@ const CreateStory = () => {
     }
   };
 
-  async function handleImageUpload() {
+  const handleImageUpload = async () => {
     const data = new FormData();
     data.append("file", story.media);
-    data.append("upload_preset", preset);
-    const response = await axios.post(cloudinaryUrl, data);
-    const mediaUrl = response.data.url;
-    //const url = JSON.stringify(mediaUrl);
-    return setStory((prevState) =>({...prevState, media: mediaUrl}))
+    data.append("upload_preset", "idnmaxun");
+    const response = await axios.post(
+      process.env.REACT_APP_CLOUDINARY_URL,
+      data
+    );
+    const mediaUrl = await response.data.url;
+    story.media = mediaUrl;
   }
-
-console.log(story)
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     try {
+      setLoading(true);
       await handleImageUpload();
-      console.log("Story", story)
       await axiosApi.post("createStory", {
         storyData: story,
       });
       setRedirect(true);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   if (redirect) {
-    <Redirect to="/myStories" />;
+    return <Redirect to="/myStories" />;
   }
 
   return (
@@ -87,7 +88,9 @@ console.log(story)
             required="required"
             onChange={handleChange}
           />
-          <Button type="submit">Submit</Button>
+          <Button disabled={loading} type="submit">
+            Submit
+          </Button>
         </FieldSet>
       </form>
     </>
