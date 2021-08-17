@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/create-connect">
           <CreateConnect />
         </Route>
-        <Route path="/create-story">
+        <Route path="/create-story/:childId">
           <CreateStory />
         </Route>
         <Route path="/my-stories">
