@@ -6,6 +6,7 @@ import LoginSignup from "./pages/LoginSignup";
 import ChildLogin from "./pages/ChildLogin";
 import AccountIndex from "./pages/account/AccountIndex";
 import CreateStory from "./pages/account/CreateStory";
+import MyStories from "./pages/account/MyStories";
 
 const App = () => {
   return (
@@ -28,6 +29,9 @@ const App = () => {
         </Route>
         <Route path="/create-story">
           <CreateStory />
+        </Route>
+        <Route path="/my-stories">
+          <MyStories />
         </Route>
         <Route path="/child/login">
           <ChildLogin />
