@@ -32,7 +32,7 @@ const NavBar = () => {
           <StyledLink to="/create-connect">My Children</StyledLink>
         </li>
         <li>
-          <StyledLink to="/account/stories">Stories</StyledLink>
+          <StyledLink to="/my-stories">Stories</StyledLink>
         </li>
       </NavUl>
       <form onSubmit={handleLogout}>
