@@ -19,7 +19,7 @@ const NavBar = () => {
   }
 
   if (redirect) {
-    return <Redirect to="/" />;
+    return <Redirect exact to="/" />;
   }
 
   return (

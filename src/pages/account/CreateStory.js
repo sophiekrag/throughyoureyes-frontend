@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import axios from "axios";
 
 import axiosApi from "../../utils/AxiosApi";
@@ -20,6 +20,8 @@ const CreateStory = () => {
   const [mediaPreview, setMediaPreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
+
+  const {childId} = useParams()
 
   const handleChange = (event) => {
     const { name, value, files } = event.target;
@@ -50,6 +52,7 @@ const CreateStory = () => {
       await handleImageUpload();
       await axiosApi.post("createStory", {
         storyData: story,
+        childId,
       });
       setRedirect(true);
     } catch (error) {
@@ -60,7 +63,7 @@ const CreateStory = () => {
   };
 
   if (redirect) {
-    return <Redirect to="/myStories" />;
+    return <Redirect to="/my-stories" />;
   }
 
   return (
@@ -68,6 +71,7 @@ const CreateStory = () => {
       <NavBar />
       <form onSubmit={handleOnSubmit}>
         <FieldSet title="Create Story">
+        <h1>{childId}</h1>
           <Input
             placeholder="Title"
             name="title"
