@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import AxioxApi from "../../utils/AxiosApi";
+import axiosApi from "../../utils/AxiosApi";
 import NavBar from "../../components/NavBar";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
@@ -11,9 +11,8 @@ const MyStories = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const result = await AxioxApi("myStories");
+      const result = await axiosApi("myStories");
       const usersStories = await result.data.stories;
-      console.log(usersStories);
       setMyStories([...usersStories]);
     };
     fetchUserData();
@@ -26,7 +25,7 @@ const MyStories = () => {
         {myStories.length > 0 &&
           myStories.map((story) => (
             <Card
-              key={story.id}
+              key={story._id}
               img={story.media}
               title={story.title}
               description={story.description}

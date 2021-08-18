@@ -7,6 +7,7 @@ import ChildLogin from "./pages/ChildLogin";
 import AccountIndex from "./pages/account/AccountIndex";
 import CreateStory from "./pages/account/CreateStory";
 import MyStories from "./pages/account/MyStories";
+import StoryDetail from "./pages/account/StoryDetail";
 
 const App = () => {
   return (
@@ -30,8 +31,11 @@ const App = () => {
         <Route path="/create-story/:childId">
           <CreateStory />
         </Route>
-        <Route path="/my-stories">
+        <Route exact path="/my-stories">
           <MyStories />
+        </Route>
+        <Route exact path="/my-stories/:storyId">
+          <StoryDetail />
         </Route>
         <Route path="/child/login">
           <ChildLogin />
