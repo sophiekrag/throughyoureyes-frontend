@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import axiosApi from "../../utils/AxiosApi";
-import NavBar from "../../components/NavBar";
-import Card from "../../components/Card";
-import Button from "../../components/Button";
+import axiosApi from "../../../utils/AxiosApi";
+import NavBar from "../../../components/NavBar";
+import Card from "../../../components/Card";
+import Button from "../../../components/Button";
 
 const MyStories = () => {
   const [myStories, setMyStories] = useState([]);
@@ -30,7 +31,8 @@ const MyStories = () => {
               title={story.title}
               description={story.description}
             >
-              <Button to={`/my-stories/${story._id}`}>Edit</Button>
+              <Link to={`/my-stories/details/${story._id}`}>Details</Link>
+              <Link to={`/my-stories/edit/${story._id}`}>Edit</Link>
               <Button>Delete</Button>
             </Card>
           ))}

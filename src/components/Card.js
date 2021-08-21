@@ -8,9 +8,7 @@ const Card = ({ img, title = "", creator, description, children }) => {
       {title && <CardTitle>{title}</CardTitle>}
       {description && <CardText>{description}</CardText>}
       {creator && <CardCreator>{creator}</CardCreator>}
-      <ButtonContainer>
-        {children}
-      </ButtonContainer>
+      <ButtonContainer>{children}</ButtonContainer>
     </CardContainer>
   );
 };
@@ -25,7 +23,10 @@ const CardContainer = styled.section`
 const ButtonContainer = styled.section`
   width: 100%;
   padding: 15px 10px;
-`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
 
 const CardImg = styled.img`
   width: 100%;
