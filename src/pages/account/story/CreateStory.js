@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import axios from "axios";
 
-import axiosApi from "../../utils/AxiosApi";
-import NavBar from "../../components/NavBar";
-import FieldSet from "../../components/Form/Fieldset";
-import Input from "../../components/Form/Input";
-import Textarea from "../../components/Form/TextArea";
-import Button from "../../components/Button";
+import axiosApi from "../../../utils/AxiosApi";
+import NavBar from "../../../components/NavBar";
+import FieldSet from "../../../components/Form/Fieldset";
+import Input from "../../../components/Form/Input";
+import Textarea from "../../../components/Form/TextArea";
+import Button from "../../../components/Button";
 
 const INITIAL_STORY = {
   title: "",

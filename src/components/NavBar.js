@@ -6,17 +6,17 @@ import axiosApi from "../utils/AxiosApi";
 import Button from "./Button";
 
 const NavBar = () => {
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
 
   const handleLogout = async (event) => {
     event.preventDefault();
-    try{
-      await axiosApi.post("logout")
-      setRedirect(true)
-    } catch(error) {
-      console.log(error)
+    try {
+      await axiosApi.post("logout");
+      setRedirect(true);
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   if (redirect) {
     return <Redirect exact to="/" />;
@@ -29,10 +29,12 @@ const NavBar = () => {
           <StyledLink to="/account">Home</StyledLink>
         </li>
         <li>
-          <StyledLink to="/create-connect">My Children</StyledLink>
+          <StyledLink to="/create-connect">
+            Create / Connect to child profile
+          </StyledLink>
         </li>
         <li>
-          <StyledLink to="/my-stories">Stories</StyledLink>
+          <StyledLink to="/my-stories">My stories</StyledLink>
         </li>
       </NavUl>
       <form onSubmit={handleLogout}>
@@ -46,6 +48,7 @@ const Container = styled.section`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  border-bottom: 1px solid black;
 `;
 
 const NavUl = styled.ul`
