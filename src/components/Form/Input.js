@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = ({ placeholder, name, type = "text", accept, required, onChange, value}) => {
+const Input = ({ placeholder, name, type = "text", accept, required, onChange, ...restProps}) => {
   return (
       <FormInput
         placeholder={placeholder}
@@ -10,7 +10,7 @@ const Input = ({ placeholder, name, type = "text", accept, required, onChange, v
         accept={accept}
         required={required}
         onChange={onChange}
-        value={value}
+        {...restProps}
       />
   );
 };

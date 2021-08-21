@@ -8,6 +8,7 @@ import AccountIndex from "./pages/account/AccountIndex";
 import CreateStory from "./pages/account/story/CreateStory";
 import MyStories from "./pages/account/story/MyStories";
 import StoryDetail from "./pages/account/story/StoryDetail";
+import StoryEdit from "./pages/account/story/StoryEdit";
 
 const App = () => {
   return (
@@ -38,7 +39,7 @@ const App = () => {
           <StoryDetail />
         </Route>
         <Route exact path="/my-stories/edit/:storyId">
-          <StoryDetail />
+          <StoryEdit />
         </Route>
         <Route path="/child/login">
           <ChildLogin />
