@@ -11,7 +11,7 @@ import NavBar from "../../../components/NavBar";
 
 const StoryEdit = () => {
   const [input, setInput] = useState({});
-  const [story, setStory] = useState();
+  const [story, setStory] = useState("");
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [mediaPreview, setMediaPreview] = useState("");
@@ -54,7 +54,7 @@ const StoryEdit = () => {
       }));
     }
   };
-  
+
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     try {
