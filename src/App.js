@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import PrivateRoute from "./utils/PrivateRoute";
 import CreateConnect from "./pages/account/CreateConnect";
 import LoginSignup from "./pages/LoginSignup";
 import ChildLogin from "./pages/ChildLogin";
@@ -22,24 +23,24 @@ const App = () => {
         <Route path="/signup">
           <LoginSignup />
         </Route>
-        <Route path="/account">
+        <PrivateRoute path="/account">
           <AccountIndex />
-        </Route>
-        <Route path="/create-connect">
+        </PrivateRoute>
+        <PrivateRoute path="/create-connect">
           <CreateConnect />
-        </Route>
-        <Route path="/create-story/:childId">
+        </PrivateRoute>
+        <PrivateRoute path="/create-story/:childId">
           <CreateStory />
-        </Route>
-        <Route exact path="/my-stories">
+        </PrivateRoute>
+        <PrivateRoute exact path="/my-stories">
           <MyStories />
-        </Route>
-        <Route exact path="/my-stories/details/:storyId">
+        </PrivateRoute>
+        <PrivateRoute exact path="/my-stories/details/:storyId">
           <StoryDetail />
-        </Route>
-        <Route exact path="/my-stories/edit/:storyId">
+        </PrivateRoute>
+        <PrivateRoute exact path="/my-stories/edit/:storyId">
           <StoryDetail />
-        </Route>
+        </PrivateRoute>
         <Route path="/child/login">
           <ChildLogin />
         </Route>
