@@ -6,7 +6,6 @@ import { Redirect } from "react-router-dom";
 import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
-import catchErrors from "../utils/catchErrors";
 
 const INITIAL_USER = {
   email: "",
@@ -24,7 +23,6 @@ const LoginSignup = ({ isPageLogin = false }) => {
   });
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
@@ -42,13 +40,12 @@ const LoginSignup = ({ isPageLogin = false }) => {
     event.preventDefault();
     try {
       setLoading(true);
-      setError("");
       await axiosApi.post(postVariant, {
         userData: user,
       });
       setRedirect(true);
     } catch (error) {
-      catchErrors(error, setError);
+      console.log(error)
     } finally {
       setLoading(false);
     }
