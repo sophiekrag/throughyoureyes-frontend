@@ -9,7 +9,6 @@ import AccountIndex from "./pages/account/AccountIndex";
 import CreateStory from "./pages/account/story/CreateStory";
 import MyStories from "./pages/account/story/MyStories";
 import StoryDetail from "./pages/account/story/StoryDetail";
-
 import StoryEdit from "./pages/account/story/StoryEdit";
 import AuthContext from "./utils/AuthContext";
 
@@ -39,11 +38,11 @@ const App = () => {
           <PrivateRoute exact path="/my-stories">
             <MyStories />
           </PrivateRoute>
-          <PrivateRoute exact path="/my-stories/details/:storyId">
+          <PrivateRoute path="/my-stories/details/:storyId">
             <StoryDetail />
           </PrivateRoute>
-          <PrivateRoute exact path="/my-stories/edit/:storyId">
-            <StoryDetail />
+          <PrivateRoute path="/my-stories/edit/:storyId">
+            <StoryEdit />
           </PrivateRoute>
           <Route path="/child/login">
             <ChildLogin />
