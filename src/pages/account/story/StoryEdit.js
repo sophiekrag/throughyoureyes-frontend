@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
-
 import axios from "axios";
+
 import axiosApi from "../../../utils/AxiosApi";
 import FieldSet from "../../../components/Form/Fieldset";
 import Input from "../../../components/Form/Input";
@@ -36,29 +36,38 @@ const StoryEdit = () => {
       data
     );
     const mediaUrl = await response.data.url;
-    input.media = mediaUrl;
+    return mediaUrl;
   };
 
   const handleChange = (event) => {
     const { name, value, files } = event.target;
     if (name === "media") {
-      setInput((prevState) => ({ ...prevState, media: files[0] }));
+      setInput((prevState) => 
+      ({ ...prevState, 
+        media: files[0] 
+      }));
       setMediaPreview(window.URL.createObjectURL(files[0]));
     } else {
-      setInput((prevState) => ({ ...prevState, [name]: value }));
+      setInput((prevState) => 
+      ({ ...prevState, 
+        [name]: value 
+      }));
     }
   };
-
+  
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     try {
       setLoading(true);
-      input.media && (await handleImageUpload());
-      await axiosApi.post("editStory", {
-        storyData: input,
+      const mediaUrl = await handleImageUpload();
+      const response = await axiosApi.post("editStory", {
+        storyData: {
+          ...input,
+          media: mediaUrl,
+        },
         storyId,
       });
-      setRedirect(true);
+      setRedirect(response.status === 200);
     } catch (error) {
       console.log(error);
     } finally {
@@ -79,7 +88,9 @@ const StoryEdit = () => {
       <NavBar />
       <form onSubmit={handleOnSubmit}>
         <FieldSet title="Edit Story for:">
-          <h2>{story.child[0].firstname} {story.child[0].lastname}</h2>
+          <h2>
+            {story.child[0].firstname} {story.child[0].lastname}
+          </h2>
           <Input
             placeholder="Title"
             name="title"

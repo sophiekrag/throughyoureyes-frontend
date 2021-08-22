@@ -35,10 +35,10 @@ const App = () => {
         <Route exact path="/my-stories">
           <MyStories />
         </Route>
-        <Route exact path="/my-stories/details/:storyId">
+        <Route path="/my-stories/details/:storyId">
           <StoryDetail />
         </Route>
-        <Route exact path="/my-stories/edit/:storyId">
+        <Route path="/my-stories/edit/:storyId">
           <StoryEdit />
         </Route>
         <Route path="/child/login">
