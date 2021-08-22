@@ -49,7 +49,7 @@ const CreateStory = () => {
     event.preventDefault();
     try {
       setLoading(true);
-      await handleImageUpload();
+      story.media && await handleImageUpload();
       await axiosApi.post("createStory", {
         storyData: story,
         childId,
