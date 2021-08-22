@@ -1,29 +1,21 @@
-import React, { useContext } from "react";
-import { Redirect, Route, Link } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
+import { Route, Link } from "react-router-dom";
 
-import { IsAuthContext } from "./AuthContext";
+import { CreateAuthContext } from "./AuthContext";
 
 function PrivateRoute({ children, ...restOfProps }) {
-  const { isLoggedIn } = useContext(IsAuthContext);
-  const { isAuth } = useContext(IsAuthContext);
+  const { isAuth, isLoggedIn } = useContext(CreateAuthContext);
 
-  isLoggedIn();
-
-  if (!isAuth) {
-    return (
-      <p>
-        You need to be logged in. Please login{" "}
-        <Link exact to="/">
-          here
-        </Link>
-      </p>
-    );
-  }
+  useEffect(() => {
+    isLoggedIn();
+  }, [isLoggedIn]);
 
   return isAuth ? (
     <Route {...restOfProps}>{children}</Route>
   ) : (
-    <Redirect exact to="/" />
+    <p>
+      You need to be logged in. Please login <Link to="/">here</Link>
+    </p>
   );
 }
 

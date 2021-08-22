@@ -1,7 +1,7 @@
 import React, { useState, createContext } from "react";
 import axiosApi from "./AxiosApi";
 
-export const IsAuthContext = createContext({});
+export const CreateAuthContext = createContext({});
 
 const AuthContext = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
@@ -16,9 +16,9 @@ const AuthContext = ({ children }) => {
   };
 
   return (
-    <IsAuthContext.Provider value={{ isAuth, isLoggedIn }}>
+    <CreateAuthContext.Provider value={{ isAuth, isLoggedIn }}>
       {children}
-    </IsAuthContext.Provider>
+    </CreateAuthContext.Provider>
   );
 };
 
