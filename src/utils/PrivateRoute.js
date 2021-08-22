@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
 
-function PrivateRoute({ children, ...restOfProps }) {
-  const isAuthenticated = true
-  console.log(Boolean(isAuthenticated));
+import { IsAuthContext } from "./AuthContext";
 
-  return isAuthenticated ? 
+function PrivateRoute({ children, ...restOfProps }) {
+  const isAuth = true
+  
+  return isAuth ? 
     (<Route {...restOfProps}>{children}</Route>)
        :
     (<Redirect exact to="/" /> )

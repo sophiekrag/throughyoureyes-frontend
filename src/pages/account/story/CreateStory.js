@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -17,11 +17,23 @@ const INITIAL_STORY = {
 
 const CreateStory = () => {
   const [story, setStory] = useState(INITIAL_STORY);
+  const [child, setChild] = useState()
   const [mediaPreview, setMediaPreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
   const {childId} = useParams()
+
+  useEffect(() => {
+    const childData = async () => {
+      const response = await axiosApi(`/getChild/${childId}`)
+      const childData = await response.data
+      setChild(childData)
+    } 
+    childData()
+  }, [childId])
+
+  console.log(child)
 
   const handleChange = (event) => {
     const { name, value, files } = event.target;
@@ -66,12 +78,16 @@ const CreateStory = () => {
     return <Redirect to="/my-stories" />;
   }
 
+  if (!child) {
+    return <p>Loading...</p>
+  }
+
   return (
     <>
       <NavBar />
       <form onSubmit={handleOnSubmit}>
-        <FieldSet title="Create Story">
-        <h1>{childId}</h1>
+        <FieldSet title="Create Story for">
+        <h1>{child.firstname}</h1>
           <Input
             placeholder="Title"
             name="title"

@@ -5,7 +5,6 @@ import axiosApi from "../utils/AxiosApi";
 import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
-import catchErrors from "../utils/catchErrors";
 
 const INITIAL_CHILD = {
   username: "",
@@ -35,7 +34,7 @@ const ChildLogin = () => {
         childData: child,
       });
     } catch (error) {
-      catchErrors(error);
+      console.log(error)
     } finally {
       setLoading(false);
     }

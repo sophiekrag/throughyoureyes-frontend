@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import axiosApi from "../../utils/AxiosApi";
 
 import styled from "styled-components";
@@ -20,6 +21,7 @@ const CreateConnect = () => {
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState(null);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const isChild = Object.values(child).every((el) => Boolean(el));
@@ -38,6 +40,7 @@ const CreateConnect = () => {
       await axiosApi.post("findChild", {
         id,
       });
+      setRedirect(true);
     } catch (error) {
       console.log(error);
     } finally {
@@ -49,16 +52,20 @@ const CreateConnect = () => {
     event.preventDefault();
     try {
       setLoading(true);
-      const response = await axiosApi.post("createchild", {
+      await axiosApi.post("createchild", {
         childData: child,
       });
-      console.log(response);
+      setRedirect(true);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
+  if (redirect) {
+    return <Redirect to="/account" />;
+  }
 
   return (
     <>
