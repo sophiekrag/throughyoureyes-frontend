@@ -12,6 +12,7 @@ import NavBar from "../../../components/NavBar";
 const StoryEdit = () => {
   const [input, setInput] = useState({});
   const [story, setStory] = useState("");
+  const [cloudinaryImg, setCloudinaryImg] = useState({});
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [mediaPreview, setMediaPreview] = useState("");
@@ -29,44 +30,40 @@ const StoryEdit = () => {
 
   const handleImageUpload = async () => {
     const data = new FormData();
-    data.append("file", input.media);
+    data.append("file", cloudinaryImg);
     data.append("upload_preset", "idnmaxun");
     const response = await axios.post(
       process.env.REACT_APP_CLOUDINARY_URL,
       data
     );
     const mediaUrl = await response.data.url;
-    return mediaUrl;
+    setInput((prevState) => ({ ...prevState, media: mediaUrl }));
   };
+
+  console.log(cloudinaryImg);
 
   const handleChange = (event) => {
     const { name, value, files } = event.target;
     if (name === "media") {
-      setInput((prevState) => 
-      ({ ...prevState, 
-        media: files[0] 
-      }));
+      setCloudinaryImg(files[0]);
       setMediaPreview(window.URL.createObjectURL(files[0]));
     } else {
-      setInput((prevState) => 
-      ({ ...prevState, 
-        [name]: value 
-      }));
+      setInput((prevState) => ({ ...prevState, [name]: value }));
     }
   };
+
+  console.log(input);
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     try {
       setLoading(true);
-      const mediaUrl = await handleImageUpload();
+      input.media && (await handleImageUpload());
       const response = await axiosApi.post("editStory", {
-        storyData: {
-          ...input,
-          media: mediaUrl,
-        },
+        input,
         storyId,
       });
+      console.log(input);
       setRedirect(response.status === 200);
     } catch (error) {
       console.log(error);
@@ -105,11 +102,10 @@ const StoryEdit = () => {
             accept="image/*"
             onChange={handleChange}
           />
-          {mediaPreview ? (
-            <img src={mediaPreview} alt="Media preview" />
-          ) : (
-            <img src={story.media} alt="Media preview" />
-          )}
+          <img
+            src={mediaPreview ? mediaPreview : story.media}
+            alt="Media preview"
+          />
           <TextArea
             placeholder="Your story"
             name="description"
