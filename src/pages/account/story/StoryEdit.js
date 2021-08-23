@@ -12,7 +12,7 @@ import NavBar from "../../../components/NavBar";
 const StoryEdit = () => {
   const [input, setInput] = useState({});
   const [story, setStory] = useState("");
-  const [cloudinaryImg, setCloudinaryImg] = useState({});
+  const [cloudinaryImg, setCloudinaryImg] = useState(null);
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [mediaPreview, setMediaPreview] = useState("");
@@ -23,48 +23,50 @@ const StoryEdit = () => {
     const fetchStoryData = async () => {
       const result = await axiosApi.get(`/storyDetails/${storyId}`);
       const singleStory = await result.data;
+      setCloudinaryImg(singleStory.media)
       setStory(singleStory);
     };
     fetchStoryData();
   }, [storyId]);
 
-  const handleImageUpload = async () => {
+  const handleImageUpload = async (event) => {
+    const { files } = event.target;
+    const image = files[0];
+
     const data = new FormData();
-    data.append("file", cloudinaryImg);
+    data.append("file", image);
     data.append("upload_preset", "idnmaxun");
+
+    setMediaPreview(window.URL.createObjectURL(image));
+
     const response = await axios.post(
       process.env.REACT_APP_CLOUDINARY_URL,
       data
     );
-    const mediaUrl = await response.data.url;
-    setInput((prevState) => ({ ...prevState, media: mediaUrl }));
-  };
 
-  console.log(cloudinaryImg);
+    const mediaUrl = await response.data.url;
+    setCloudinaryImg(mediaUrl);
+  };
 
   const handleChange = (event) => {
-    const { name, value, files } = event.target;
-    if (name === "media") {
-      setCloudinaryImg(files[0]);
-      setMediaPreview(window.URL.createObjectURL(files[0]));
-    } else {
-      setInput((prevState) => ({ ...prevState, [name]: value }));
-    }
+    const { name, value } = event.target;
+    setInput((prevState) => ({ ...prevState, [name]: value }));
   };
-
-  console.log(input);
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     try {
       setLoading(true);
-      input.media && (await handleImageUpload());
-      const response = await axiosApi.post("editStory", {
-        input,
-        storyId,
+     
+      const response = await axiosApi.post(`editStory/${storyId}`, {
+        title: story.title,
+        description: story.description,
+        ...input,
+        media: cloudinaryImg,
       });
-      console.log(input);
-      setRedirect(response.status === 200);
+
+      const statusCode = await response.status;
+      setRedirect(statusCode === 200);
     } catch (error) {
       console.log(error);
     } finally {
@@ -80,13 +82,15 @@ const StoryEdit = () => {
     return <span>Loading...</span>;
   }
 
+  const { firstname, lastname } = story.child[0];
+
   return (
     <>
       <NavBar />
       <form onSubmit={handleOnSubmit}>
         <FieldSet title="Edit Story for:">
           <h2>
-            {story.child[0].firstname} {story.child[0].lastname}
+            {firstname} {lastname}
           </h2>
           <Input
             placeholder="Title"
@@ -100,7 +104,7 @@ const StoryEdit = () => {
             name="media"
             type="file"
             accept="image/*"
-            onChange={handleChange}
+            onChange={handleImageUpload}
           />
           <img
             src={mediaPreview ? mediaPreview : story.media}
