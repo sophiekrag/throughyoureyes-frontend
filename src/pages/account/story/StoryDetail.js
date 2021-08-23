@@ -7,6 +7,7 @@ import Navbar from "../../../components/NavBar"
 
 const StoryDetail = () => {
   const [story, setStory] = useState();
+  
   const {storyId} = useParams();
 
   useEffect(() => {

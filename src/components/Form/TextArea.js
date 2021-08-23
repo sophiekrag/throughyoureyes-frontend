@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const TextArea = ({ name, placeholder, required, onChange, value}) => {
+const TextArea = ({ name, placeholder, required, onChange, ...restProps}) => {
   return (
       <FormTextArea
         name={name}
         placeholder={placeholder}
         required={required}
         onChange={onChange}
-        value={value}
+        {...restProps}
       />
   );
 };
