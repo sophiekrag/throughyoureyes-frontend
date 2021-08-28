@@ -18,7 +18,7 @@ const ChildLogin = () => {
 
   useEffect(() => {
     const isChild = Object.values(child).every((el) => Boolean(el));
-    setDisabled(!isChild);
+    return setDisabled(!isChild);
   }, [child]);
 
   const handleChange = (event) => {

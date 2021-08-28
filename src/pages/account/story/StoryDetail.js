@@ -16,7 +16,7 @@ const StoryDetail = () => {
       const singleStory = await result.data;
       setStory(singleStory);
     };
-    fetchStoryData();
+    return fetchStoryData();
   }, [storyId]);
 
   if (!story) {

@@ -14,7 +14,7 @@ const AccountIndex = () => {
       const usersChildren = await result.data.children;
       setMyChildren([...usersChildren]);
     };
-    fetchUserData();
+    return fetchUserData();
   }, []);
 
   return (

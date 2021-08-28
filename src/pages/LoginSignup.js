@@ -27,7 +27,7 @@ const LoginSignup = ({ isPageLogin = false }) => {
 
   useEffect(() => {
     const isUser = Object.values(user).every((el) => Boolean(el));
-    setDisabled(!isUser);
+    return setDisabled(!isUser);
   }, [user]);
 
   const handleChange = (event) => {
@@ -43,12 +43,11 @@ const LoginSignup = ({ isPageLogin = false }) => {
       const response = await axiosApi.post(postVariant, {
         userData: user,
       });
-      const statusCode = await response.status;
-      setRedirect(statusCode === 200);
+      return setRedirect(response.status === 200);
     } catch (error) {
       console.log(error)
     } finally {
-      setLoading(false);
+      return setLoading(false);
     }
   };
 
