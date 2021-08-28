@@ -25,6 +25,7 @@ export const theme = {
     warning: "#ffe59a",
     warningDark: "#f9c11e",
     disabled: "#c1c8ce",
+    delete: "red"
   },
   breakpoints: {},
 };

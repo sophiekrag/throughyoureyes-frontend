@@ -22,9 +22,8 @@ const Container = styled.fieldset`
 
 const Title = styled.h1`
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
-  font-size: 2rem;
 `;
 
 export default FieldSet;

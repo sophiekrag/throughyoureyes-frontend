@@ -8,6 +8,7 @@ const Button = ({ onClick, type = "button", btnType = 'primary', disabled, to, c
   const buttonType = {
     primary: MainButton,
     secondary: SecondaryBtn,
+    delete: DeleteBtn,
   }
 
   const TransformButtonType = buttonType[btnType] || MainButton
@@ -26,14 +27,16 @@ const MainButton = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius};
   padding: 1rem;
   text-decoration: none;
+  text-align: center;
   cursor: pointer;
   transition: background-color ease-in 0.15s;
   width: 100%;
+  margin: 10px;
   &:hover {
     background-color: ${({ theme }) => theme.color.primaryDark};
   }
   &:disabled {
-    color: #babdbe;
+    color: #565656;
     cursor: not-allowed;
     background-color: ${({ theme }) => theme.color.disabled};
   }
@@ -41,6 +44,13 @@ const MainButton = styled.button`
 
 const SecondaryBtn = styled(MainButton)`
   background-color: ${({ theme }) => theme.color.warning};
+  &:hover {
+    background-color: ${({ theme }) => theme.color.warningDark};
+  }
+`
+
+const DeleteBtn = styled(MainButton)`
+  background-color: ${({ theme }) => theme.color.delete};
   &:hover {
     background-color: ${({ theme }) => theme.color.warningDark};
   }

@@ -30,6 +30,7 @@ const StoryEdit = () => {
   }, [storyId]);
 
   const handleImageUpload = async (event) => {
+    setLoading(true)
     const { files } = event.target;
     const image = files[0];
 
@@ -46,6 +47,7 @@ const StoryEdit = () => {
 
     const mediaUrl = await response.data.url;
     setCloudinaryImg(mediaUrl);
+    setLoading(false)
   };
 
   const handleChange = (event) => {

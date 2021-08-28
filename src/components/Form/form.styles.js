@@ -5,7 +5,7 @@ const FormElement = css`
     color: ${({ theme }) => theme.color.text};
     border: 2px solid ${({ theme }) => theme.color.primary};
     border-radius: ${({ theme }) => theme.borderRadius};
-    margin: 1rem;
+    margin-bottom: 1rem;
     padding: 1rem;
 `
 
