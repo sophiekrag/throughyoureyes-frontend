@@ -72,15 +72,17 @@ const CreateConnect = () => {
       <NavBar />
       <Container>
         <form onSubmit={handleFindChild}>
-          <Input
-            placeholder="Connect to child"
-            name="id"
-            onChange={(e) => setId(e.target.value)}
-          />
-          <Button type="submit">Connect</Button>
+          <FieldSet title="Connect to child profile">
+            <Input
+              placeholder="Connect to child"
+              name="id"
+              onChange={(e) => setId(e.target.value)}
+            />
+            <Button disabled={id === null && "disabled"} type="submit">Connect</Button>
+          </FieldSet>
         </form>
         <form onSubmit={handleOnSubmit}>
-          <FieldSet title="Create child">
+          <FieldSet title="Create child profile">
             <Input
               placeholder="First name"
               name="firstname"
@@ -119,5 +121,7 @@ const CreateConnect = () => {
 const Container = styled.section`
   display: flex;
   flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
 `;
 export default CreateConnect;

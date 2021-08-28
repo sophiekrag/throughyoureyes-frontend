@@ -37,9 +37,9 @@ const NavBar = () => {
           <StyledLink to="/my-stories">My stories</StyledLink>
         </li>
       </NavUl>
-      <form onSubmit={handleLogout}>
+      <StyledForm onSubmit={handleLogout}>
         <Button type="submit" btnType="secondary">Logout</Button>
-      </form>
+      </StyledForm>
     </Container>
   );
 };
@@ -47,7 +47,6 @@ const NavBar = () => {
 const Container = styled.section`
   display: flex;
   justify-content: space-between;
-  padding-bottom: 10px;
   margin-bottom: 10px;
   border-bottom: 5px solid ${({ theme}) => theme.color.secondary};
 `;
@@ -70,5 +69,9 @@ const StyledLink = styled(Link)`
     background-color: ${({ theme }) => theme.color.secondary};
   }
 `;
+
+const StyledForm = styled.form`
+margin-right: 25px;
+`
 
 export default NavBar;
