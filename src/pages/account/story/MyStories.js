@@ -12,7 +12,7 @@ const MyStories = () => {
   const [id, setId] = useState();
 
   useEffect(() => {
-    fetchUserData();
+   return fetchUserData();
   }, []);
 
   const fetchUserData = async () => {

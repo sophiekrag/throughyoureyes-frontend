@@ -31,7 +31,7 @@ const CreateStory = () => {
       const childData = await response.data;
       setChild(childData);
     };
-    childData();
+    return childData();
   }, [childId]);
 
   const handleChange = (event) => {

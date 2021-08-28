@@ -25,7 +25,7 @@ const CreateConnect = () => {
 
   useEffect(() => {
     const isChild = Object.values(child).every((el) => Boolean(el));
-    setDisabled(!isChild);
+    return setDisabled(!isChild);
   }, [child]);
 
   const handleChange = (event) => {
@@ -37,14 +37,14 @@ const CreateConnect = () => {
     event.preventDefault();
     try {
       setLoading(true);
-      await axiosApi.post("findChild", {
+      const result = await axiosApi.post("findChild", {
         id,
       });
-      setRedirect(true);
+      return setRedirect(result.status === 200);
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      return setLoading(false);
     }
   };
 
@@ -52,14 +52,14 @@ const CreateConnect = () => {
     event.preventDefault();
     try {
       setLoading(true);
-      await axiosApi.post("createchild", {
+      const result = await axiosApi.post("createchild", {
         childData: child,
       });
-      setRedirect(true);
+      return setRedirect(result.status === 200);
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      return setLoading(false);
     }
   };
 

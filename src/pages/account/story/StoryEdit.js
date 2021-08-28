@@ -26,7 +26,7 @@ const StoryEdit = () => {
       setCloudinaryImg(singleStory.media)
       setStory(singleStory);
     };
-    fetchStoryData();
+    return fetchStoryData();
   }, [storyId]);
 
   const handleImageUpload = async (event) => {

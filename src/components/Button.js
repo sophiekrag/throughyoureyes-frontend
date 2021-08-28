@@ -12,7 +12,7 @@ const Button = ({ onClick, type = "button", btnType = 'primary', disabled, to, c
 
   const TransformButtonType = buttonType[btnType] || MainButton
   return (
-    <TransformButtonType onClick={onClick} btnType={btnType} disabled={disabled} as={isLink} {...tagAttr}>
+    <TransformButtonType onClick={onClick} btntype={btnType} disabled={disabled} as={isLink} {...tagAttr}>
       {children}
     </TransformButtonType>
   );
@@ -45,28 +45,5 @@ const SecondaryBtn = styled(MainButton)`
     background-color: ${({ theme }) => theme.color.warningDark};
   }
 `
-
-// const MainButton = styled.button`
-//   color: black;
-//   background-color: var(--P-light);
-//   border-radius: 15px;
-//   font-size: 1rem;
-//   padding: 1rem;
-//   margin: 1rem;
-//   border: none;
-//   box-shadow: 10px 0px 14px -7px var(--Primary);
-//   text-decoration: none;
-//   font-family: arial, sans-serif;
-//   cursor: pointer;
-//   &:hover {
-//     color: white;
-//     background-color: var(--P-dark);
-//   };
-//   &:disabled {
-//     background-color: #eceff1;
-//     color: #babdbe;
-//     box-shadow: 10px 0px 14px -7px black;
-//   }
-// `;
 
 export default Button;
