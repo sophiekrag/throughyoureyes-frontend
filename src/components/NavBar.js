@@ -38,7 +38,7 @@ const NavBar = () => {
         </li>
       </NavUl>
       <form onSubmit={handleLogout}>
-        <Button type="submit">Logout</Button>
+        <Button type="submit" btnType="secondary">Logout</Button>
       </form>
     </Container>
   );
@@ -47,8 +47,9 @@ const NavBar = () => {
 const Container = styled.section`
   display: flex;
   justify-content: space-between;
+  padding-bottom: 10px;
   margin-bottom: 10px;
-  border-bottom: 1px solid black;
+  border-bottom: 5px solid ${({ theme}) => theme.color.secondary};
 `;
 
 const NavUl = styled.ul`
@@ -62,12 +63,11 @@ const NavUl = styled.ul`
 const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 1.2rem;
-  padding: 20px;
-  margin: 0px;
-  color: black;
+  padding: 25px;
+  color: ${({ theme }) => theme.color.text};
+  transition: background-color ease-in 0.15s;
   &:hover {
-    color: white;
-    background-color: grey;
+    background-color: ${({ theme }) => theme.color.secondary};
   }
 `;
 

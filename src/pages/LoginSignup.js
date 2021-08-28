@@ -40,10 +40,11 @@ const LoginSignup = ({ isPageLogin = false }) => {
     event.preventDefault();
     try {
       setLoading(true);
-      await axiosApi.post(postVariant, {
+      const response = await axiosApi.post(postVariant, {
         userData: user,
       });
-      setRedirect(true);
+      const statusCode = await response.status;
+      setRedirect(statusCode === 200);
     } catch (error) {
       console.log(error)
     } finally {

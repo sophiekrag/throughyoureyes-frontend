@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import  { ThemeProvider } from "styled-components";
+
+import GlobalStyles, { theme } from "./utils/GlobalStyles";
 import Home from "./pages/Home";
 import PrivateRoute from "./utils/PrivateRoute";
 import CreateConnect from "./pages/account/CreateConnect";
@@ -14,42 +17,45 @@ import AuthContext from "./utils/AuthContext";
 
 const App = () => {
   return (
-    <AuthContext>
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/login">
-            <LoginSignup isPageLogin />
-          </Route>
-          <Route path="/signup">
-            <LoginSignup />
-          </Route>
-          <PrivateRoute path="/account">
-            <AccountIndex />
-          </PrivateRoute>
-          <PrivateRoute path="/create-connect">
-            <CreateConnect />
-          </PrivateRoute>
-          <PrivateRoute path="/create-story/:childId">
-            <CreateStory />
-          </PrivateRoute>
-          <PrivateRoute exact path="/my-stories">
-            <MyStories />
-          </PrivateRoute>
-          <PrivateRoute path="/my-stories/details/:storyId">
-            <StoryDetail />
-          </PrivateRoute>
-          <PrivateRoute path="/my-stories/edit/:storyId">
-            <StoryEdit />
-          </PrivateRoute>
-          <Route path="/child/login">
-            <ChildLogin />
-          </Route>
-        </Switch>
-      </Router>
-    </AuthContext>
+    <ThemeProvider theme={theme}>
+      <AuthContext>
+        <GlobalStyles />
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/login">
+              <LoginSignup isPageLogin />
+            </Route>
+            <Route path="/signup">
+              <LoginSignup />
+            </Route>
+            <PrivateRoute path="/account">
+              <AccountIndex />
+            </PrivateRoute>
+            <PrivateRoute path="/create-connect">
+              <CreateConnect />
+            </PrivateRoute>
+            <PrivateRoute path="/create-story/:childId">
+              <CreateStory />
+            </PrivateRoute>
+            <PrivateRoute exact path="/my-stories">
+              <MyStories />
+            </PrivateRoute>
+            <PrivateRoute path="/my-stories/details/:storyId">
+              <StoryDetail />
+            </PrivateRoute>
+            <PrivateRoute path="/my-stories/edit/:storyId">
+              <StoryEdit />
+            </PrivateRoute>
+            <Route path="/child/login">
+              <ChildLogin />
+            </Route>
+          </Switch>
+        </Router>
+      </AuthContext>
+    </ThemeProvider>
   );
 };
 
