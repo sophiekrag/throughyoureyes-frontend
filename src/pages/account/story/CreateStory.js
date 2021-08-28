@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import { Redirect, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -17,23 +18,21 @@ const INITIAL_STORY = {
 
 const CreateStory = () => {
   const [story, setStory] = useState(INITIAL_STORY);
-  const [child, setChild] = useState()
+  const [child, setChild] = useState();
   const [mediaPreview, setMediaPreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-  const {childId} = useParams()
+  const { childId } = useParams();
 
   useEffect(() => {
     const childData = async () => {
-      const response = await axiosApi(`/getChild/${childId}`)
-      const childData = await response.data
-      setChild(childData)
-    } 
-    childData()
-  }, [childId])
-
-  console.log(child)
+      const response = await axiosApi(`/getChild/${childId}`);
+      const childData = await response.data;
+      setChild(childData);
+    };
+    childData();
+  }, [childId]);
 
   const handleChange = (event) => {
     const { name, value, files } = event.target;
@@ -55,13 +54,13 @@ const CreateStory = () => {
     );
     const mediaUrl = await response.data.url;
     story.media = mediaUrl;
-  }
+  };
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     try {
       setLoading(true);
-      story.media && await handleImageUpload();
+      story.media && (await handleImageUpload());
       await axiosApi.post("createStory", {
         storyData: story,
         childId,
@@ -79,7 +78,7 @@ const CreateStory = () => {
   }
 
   if (!child) {
-    return <p>Loading...</p>
+    return <p>Loading...</p>;
   }
 
   return (
@@ -87,20 +86,22 @@ const CreateStory = () => {
       <NavBar />
       <form onSubmit={handleOnSubmit}>
         <FieldSet title="Create Story for">
-        <h1>{child.firstname}</h1>
-          <Input
-            placeholder="Title"
-            name="title"
-            required="required"
-            onChange={handleChange}
-          />
-          <Input
-            placeholder="Image"
-            name="media"
-            type="file"
-            accept="image/*"
-            onChange={handleChange}
-          />
+          <h1>{child.firstname}</h1>
+          <InputContainer>
+            <Input
+              placeholder="Title"
+              name="title"
+              required="required"
+              onChange={handleChange}
+            />
+            <Input
+              placeholder="Image"
+              name="media"
+              type="file"
+              accept="image/*"
+              onChange={handleChange}
+            />
+          </InputContainer>
           {mediaPreview && <img src={mediaPreview} alt="Media preview" />}
           <Textarea
             placeholder="Your story"
@@ -108,13 +109,23 @@ const CreateStory = () => {
             required="required"
             onChange={handleChange}
           />
-          <Button disabled={loading} type="submit">
-            Submit
-          </Button>
+          <ButtonContainer>
+            <Button disabled={loading} type="submit">
+              Submit
+            </Button>
+          </ButtonContainer>
         </FieldSet>
       </form>
     </>
   );
 };
+
+const InputContainer = styled.section`
+  width: 80%;
+`;
+
+const ButtonContainer = styled.section`
+  width: 50%;
+`;
 
 export default CreateStory;

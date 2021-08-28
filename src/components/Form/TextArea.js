@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+import { FormElement } from './form.styles';
+
 const TextArea = ({ name, placeholder, required, onChange, ...restProps}) => {
   return (
       <FormTextArea
         name={name}
+        rows="10"
         placeholder={placeholder}
         required={required}
         onChange={onChange}
@@ -14,14 +17,8 @@ const TextArea = ({ name, placeholder, required, onChange, ...restProps}) => {
 };
 
 const FormTextArea = styled.textarea`
-    color: black;
-    width: 60%;
-    height: 25vh;
-    font-size: 1rem;
-    border: 2px solid gray;
-    border-radius: 3px;
-    margin: 1rem;
-    padding: 1rem;
+    ${FormElement}
+    font-size: 1.3rem;
 `
 
 export default TextArea;

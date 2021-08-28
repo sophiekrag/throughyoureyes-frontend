@@ -16,14 +16,14 @@ const Container = styled.fieldset`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  margin: 0 auto;
-  padding: 1.5rem 2rem;
-  border: 4px solid gray;
+  padding: 0.5rem 1.2rem;
+  border: none;
 `;
 
-const Title = styled.h2`
-  display: flex;
-  justify-content: center;
+const Title = styled.h1`
+  width: 100%;
+  margin-bottom: 1.5rem;
+  text-align: center;
   font-size: 2rem;
 `;
 
