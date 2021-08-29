@@ -14,6 +14,7 @@ import MyStories from "./pages/account/story/MyStories";
 import StoryDetail from "./pages/account/story/StoryDetail";
 import StoryEdit from "./pages/account/story/StoryEdit";
 import AuthContext from "./utils/AuthContext";
+import ChildProfile from "./pages/childProfile/ChildProfile";
 
 const App = () => {
   return (
@@ -51,6 +52,9 @@ const App = () => {
             </PrivateRoute>
             <Route path="/child/login">
               <ChildLogin />
+            </Route>
+            <Route path="/childProfile">
+              <ChildProfile />
             </Route>
           </Switch>
         </Router>
