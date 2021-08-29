@@ -13,6 +13,8 @@ const INITIAL_CHILD = {
 
 const ChildLogin = () => {
   const [child, setChild] = useState(INITIAL_CHILD);
+  //const [childId, setChildId] = useState("")
+  //const [redirect, setRedirect] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -33,6 +35,9 @@ const ChildLogin = () => {
       await axiosApi.post("child/login", {
         childData: child,
       });
+      //setChildId(child._id)
+      //return setRedirect(response.status === 200);
+      
     } catch (error) {
       console.log(error)
     } finally {
