@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const axiosApi = axios.create({
-  baseURL: "https://through-your-eyes.herokuapp.com/api/",
-  //baseURL: "http://localhost:5000/api",
+  baseURL: process.env.REACT_APP_AXIOS_URL,
   timeout: 10000,
   withCredentials: true,
 });
