@@ -14,6 +14,7 @@ import MyStories from "./pages/account/story/MyStories";
 import StoryDetail from "./pages/account/story/StoryDetail";
 import StoryEdit from "./pages/account/story/StoryEdit";
 import AuthContext from "./utils/AuthContext";
+import AdminPage from "./pages/account/AdminPage";
 
 const App = () => {
   return (
@@ -48,6 +49,9 @@ const App = () => {
             </PrivateRoute>
             <PrivateRoute path="/my-stories/edit/:storyId">
               <StoryEdit />
+            </PrivateRoute>
+            <PrivateRoute path="/child-profile/:childId">
+              <AdminPage />
             </PrivateRoute>
             <Route path="/child/login">
               <ChildLogin />
