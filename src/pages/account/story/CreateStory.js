@@ -4,7 +4,6 @@ import { Redirect, useParams } from "react-router-dom";
 import axios from "axios";
 
 import axiosApi from "../../../utils/AxiosApi";
-import NavBar from "../../../components/NavBar";
 import FieldSet from "../../../components/Form/Fieldset";
 import Input from "../../../components/Form/Input";
 import Textarea from "../../../components/Form/TextArea";
@@ -87,7 +86,6 @@ const CreateStory = () => {
 
   return (
     <>
-      <NavBar />
       <Container>
         <form onSubmit={handleOnSubmit}>
           <FieldSet

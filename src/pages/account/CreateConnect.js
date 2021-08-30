@@ -4,12 +4,11 @@ import axiosApi from "../../utils/AxiosApi";
 
 import styled from "styled-components";
 
-import NavBar from "../../components/NavBar";
 import Input from "../../components/Form/Input";
 import Button from "../../components/Button";
 import FieldSet from "../../components/Form/Fieldset";
 import connect from "../../img/connect2.jpg";
-import { BackgroudImage, WrapContainer } from "../../styles/HomeMyStories.styles";
+import { BackgroudImage, WrapContainer } from "../../styles/AccountPages.styles";
 
 
 const INITIAL_CHILD = {
@@ -72,7 +71,6 @@ const CreateConnect = () => {
 
   return (
     <>
-      <NavBar />
       <Img src={connect} alt="children" />
       <Wrapper>
         <ConnectContainer>
