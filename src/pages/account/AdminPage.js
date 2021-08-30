@@ -4,40 +4,41 @@ import styled from "styled-components";
 
 import axiosApi from "../../utils/AxiosApi";
 import Card from "../../components/Card";
-import NavBar from "../../components/NavBar";
 import Button from "../../components/Button";
 
 const AdminPage = () => {
   const [stories, setStories] = useState([]);
   const [child, setChild] = useState({});
-  const [id, setId] = useState("");
   const { childId } = useParams();
 
   useEffect(() => {
     const childData = async () => {
-      const response = await axiosApi(`/getChild/${childId}`);
-      const childData = await response.data;
-      const storyData = await response.data.stories;
+      const getChildData = await axiosApi(`/getChild/${childId}`);
+      const childData = await getChildData.data;
       setChild(childData);
-      setStories(storyData);
+      setStories(childData.stories);
     };
     return childData();
   }, [childId]);
 
-  const deleteStory = async (event) => {
-    event.preventDefault();
-    if (id) {
-      await axiosApi.post(`deleteStory/${id}`, { childId });
-      const response = await axiosApi(`/getChild/${childId}`);
-      const storyData = await response.data.stories;
-      setStories(storyData);
+  const deleteStory = async (e) => {
+    try {
+        const responseDelete = await axiosApi.post(`deleteStory/${e}`, {
+          childId,
+        });
+        if (responseDelete.status === 200) {
+          const getChildData = await axiosApi(`/getChild/${childId}`);
+          const childStoryData = await getChildData.data.stories;
+          setStories(childStoryData);
+        }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   if (stories.length === 0) {
     return (
       <>
-        <NavBar />
         <p>
           There are no stories yet. Be the first to write a story and go to your{" "}
           <Link to="/account">home page</Link>, select {child.firstname} and
@@ -49,7 +50,6 @@ const AdminPage = () => {
 
   return (
     <>
-      <NavBar />
       <Header>
         <h1>{child.firstname}'s Stories</h1>
       </Header>
@@ -63,17 +63,7 @@ const AdminPage = () => {
               description={story.description}
             >
               <Link to={`/my-stories/details/${story._id}`}>Details</Link>
-              <form onSubmit={deleteStory}>
-                <Button
-                  type="submit"
-                  onClick={() => {
-                    setId(story._id);
-                    alert("Are you sure you want to delete this story?");
-                  }}
-                >
-                  Delete
-                </Button>
-              </form>
+              <Button onClick={(e) => deleteStory(story._id, e)}>Delete</Button>
             </Card>
           ))}
       </Container>
@@ -91,6 +81,5 @@ const Container = styled.section`
   flex-wrap: wrap;
   justify-content: center;
   width: 90%;
-  margin: 0 auto;
 `;
 export default AdminPage;

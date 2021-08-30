@@ -15,6 +15,7 @@ import StoryDetail from "./pages/account/story/StoryDetail";
 import StoryEdit from "./pages/account/story/StoryEdit";
 import AuthContext from "./utils/AuthContext";
 import AdminPage from "./pages/account/AdminPage";
+import NavBar from "./components/NavBar";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <AuthContext>
         <GlobalStyles />
         <Router>
+        {PrivateRoute && <NavBar/>}
           <Switch>
             <Route exact path="/">
               <Home />
