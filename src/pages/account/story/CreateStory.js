@@ -9,9 +9,14 @@ import FieldSet from "../../../components/Form/Fieldset";
 import Input from "../../../components/Form/Input";
 import Textarea from "../../../components/Form/TextArea";
 import Button from "../../../components/Button";
+import {
+  MainContainer,
+  ButtonInput,
+  ImgContainer,
+} from "../../../styles/CreateEditStory.styles";
 
 const CreateStory = () => {
-  const [story, setStory] = useState({ });
+  const [story, setStory] = useState({});
   const [child, setChild] = useState();
   const [cloudinaryImg, setCloudinaryImg] = useState(null);
   const [mediaPreview, setMediaPreview] = useState("");
@@ -30,7 +35,7 @@ const CreateStory = () => {
   }, [childId]);
 
   const handleImageUpload = async (event) => {
-    setLoading(true)
+    setLoading(true);
     const { files } = event.target;
     const image = files[0];
 
@@ -46,7 +51,7 @@ const CreateStory = () => {
     );
     const mediaUrl = await response.data.url;
     setCloudinaryImg(mediaUrl);
-    setLoading(false)
+    setLoading(false);
   };
 
   const handleChange = (event) => {
@@ -83,49 +88,59 @@ const CreateStory = () => {
   return (
     <>
       <NavBar />
-      <form onSubmit={handleOnSubmit}>
-        <FieldSet
-          title={`Create a story for ${child.firstname} ${child.lastname}`}
-        >
-          <InputContainer>
-            <Input
-              placeholder="Title"
-              name="title"
+      <Container>
+        <form onSubmit={handleOnSubmit}>
+          <FieldSet
+            title={`Create a story for ${child.firstname} ${child.lastname}`}
+          >
+            <InputContainer>
+              <Input
+                placeholder="Title"
+                name="title"
+                required="required"
+                onChange={handleChange}
+              />
+              <Input
+                placeholder="Image"
+                name="media"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+            </InputContainer>
+            {mediaPreview && <Img src={mediaPreview} alt="Media preview" />}
+            <Textarea
+              placeholder="Your story"
+              name="description"
               required="required"
               onChange={handleChange}
             />
-            <Input
-              placeholder="Image"
-              name="media"
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-            />
-          </InputContainer>
-          {mediaPreview && <img src={mediaPreview} alt="Media preview" />}
-          <Textarea
-            placeholder="Your story"
-            name="description"
-            required="required"
-            onChange={handleChange}
-          />
-          <ButtonContainer>
-            <Button disabled={loading} type="submit">
-              Submit
-            </Button>
-          </ButtonContainer>
-        </FieldSet>
-      </form>
+            <ButtonContainer>
+              <Button disabled={loading} type="submit">
+                Submit
+              </Button>
+            </ButtonContainer>
+          </FieldSet>
+        </form>
+      </Container>
     </>
   );
 };
 
+const Container = styled.section`
+  ${MainContainer}
+`;
+
 const InputContainer = styled.section`
-  width: 80%;
+  ${ButtonInput}
+`;
+
+const Img = styled.img`
+  ${ImgContainer}
 `;
 
 const ButtonContainer = styled.section`
-  width: 50%;
+  ${ButtonInput}
 `;
 
 export default CreateStory;

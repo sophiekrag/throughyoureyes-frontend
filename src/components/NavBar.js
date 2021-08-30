@@ -38,7 +38,9 @@ const NavBar = () => {
         </li>
       </NavUl>
       <StyledForm onSubmit={handleLogout}>
-        <Button type="submit" btnType="secondary">Logout</Button>
+        <Button type="submit" btnType="secondary">
+          Logout
+        </Button>
       </StyledForm>
     </Container>
   );
@@ -47,8 +49,9 @@ const NavBar = () => {
 const Container = styled.section`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
-  border-bottom: 5px solid ${({ theme}) => theme.color.secondary};
+  margin-bottom: 0px;
+  border-bottom: 3px solid ${({ theme }) => theme.color.mainGreen};
+  background: ${({ theme }) => theme.color.mainWhite};
 `;
 
 const NavUl = styled.ul`
@@ -63,15 +66,17 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 1.2rem;
   padding: 25px;
-  color: ${({ theme }) => theme.color.text};
+  color: ${({ theme }) => theme.color.mainGreen};
   transition: background-color ease-in 0.15s;
   &:hover {
-    background-color: ${({ theme }) => theme.color.secondary};
+    background-color: ${({ theme }) => theme.color.mainGreen};
+    color: ${({ theme }) => theme.color.mainWhite};
   }
 `;
 
 const StyledForm = styled.form`
-margin-right: 25px;
-`
+  margin-right: 25px;
+  margin-bottom: 10px;
+`;
 
 export default NavBar;

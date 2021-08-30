@@ -16,6 +16,7 @@ import StoryEdit from "./pages/account/story/StoryEdit";
 import AuthContext from "./utils/AuthContext";
 import AdminPage from "./pages/account/AdminPage";
 import NavBar from "./components/NavBar";
+import ChildProfile from "./pages/childProfile/ChildProfile";
 
 const App = () => {
   return (
@@ -57,6 +58,9 @@ const App = () => {
             </PrivateRoute>
             <Route path="/child/login">
               <ChildLogin />
+            </Route>
+            <Route path="/childProfile">
+              <ChildProfile />
             </Route>
           </Switch>
         </Router>

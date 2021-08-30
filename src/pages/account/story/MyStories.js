@@ -5,22 +5,30 @@ import axiosApi from "../../../utils/AxiosApi";
 import NavBar from "../../../components/NavBar";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
+import library from "../../../img/library.jpg"
+import {
+  BackgroudImage,
+  WrapContainer,
+  PageHeader,
+  ContainerMain,
+  LinkStyle,
+} from "../../../styles/HomeMyStories.styles";
 
 const MyStories = () => {
   const [myStories, setMyStories] = useState([]);
   const [childId, setChildId] = useState(null);
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
   const [id, setId] = useState(null);
 
   useEffect(() => {
-   return fetchUserData();
+    return fetchUserData();
   }, []);
 
   const fetchUserData = async () => {
     const result = await axiosApi("myStories");
-    const user = await result.data
+    const user = await result.data;
     const usersStories = await result.data.stories;
-    setUser(user)
+    setUser(user);
     setMyStories([...usersStories]);
   };
 
@@ -37,8 +45,9 @@ const MyStories = () => {
       <>
         <NavBar />
         <p>
-          You haven't created any stories yet, go to your <Link to="/account">home page</Link> and select a
-          child you would like to create a story for.
+          You haven't created any stories yet, go to your{" "}
+          <Link to="/account">home page</Link> and select a child you would like
+          to create a story for.
         </p>
       </>
     );
@@ -47,49 +56,61 @@ const MyStories = () => {
   return (
     <>
       <NavBar />
-      <Header>
-      <h1>{user.username}'s Stories</h1>
-      <h2>These are the stories you wrote:</h2>
-      </Header>
-      <Container>
-        {myStories.length > 0 &&
-          myStories.map((story) => (
-            <Card
-              key={story._id}
-              img={story.media}
-              title={story.title}
-              description={story.description}
-            >
-              <Link to={`/my-stories/details/${story._id}`}>Details</Link>
-              <Link to={`/my-stories/edit/${story._id}`}>Edit</Link>
-              <form onSubmit={deleteStory}>
-                <Button
-                  type="submit"
-                  onClick={() => {
-                    setId(story._id);
-                    setChildId(story.child[0]);
-                    alert("Are you sure you want to delete this story?")
-                  }}
-                >
-                  Delete
-                </Button>
-              </form>
-            </Card>
-          ))}
-      </Container>
+      <Img src={library} alt="children" />
+      <Wrapper>
+        <Header>
+          <h1>{user.username}'s Stories</h1>
+          <p>These are the stories you wrote. Check out the details or edit the story if you like. Not happy with you story? Just press the delete button.</p>
+        </Header>
+        <Main>
+          {myStories.length > 0 &&
+            myStories.map((story) => (
+              <Card
+                key={story._id}
+                img={story.media}
+                title={story.title}
+                description={story.description}
+              >
+                <StyledLink to={`/my-stories/details/${story._id}`}>Details</StyledLink>
+                <StyledLink to={`/my-stories/edit/${story._id}`}>Edit</StyledLink>
+                <form onSubmit={deleteStory}>
+                  <Button
+                    type="submit"
+                    onClick={() => {
+                      setId(story._id);
+                      setChildId(story.child[0]);
+                      alert("Are you sure you want to delete this story?");
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </form>
+              </Card>
+            ))}
+        </Main>
+      </Wrapper>
     </>
   );
 };
-const Header = styled.header`
-  text-align: center;
-  margin-bottom: 50px;
-`
-const Container = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 90%;
-  margin: 0 auto;
+
+const Img = styled.img`
+  ${BackgroudImage}
 `;
+
+const Wrapper = styled.section`
+  ${WrapContainer}
+`;
+const Header = styled.header`
+  ${PageHeader}
+`;
+
+const Main = styled.section`
+ ${ContainerMain}
+`;
+
+const StyledLink = styled(Link)`
+  ${LinkStyle}
+`;
+
 
 export default MyStories;
