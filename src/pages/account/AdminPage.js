@@ -21,9 +21,9 @@ const AdminPage = () => {
     return childData();
   }, [childId]);
 
-  const deleteStory = async (e) => {
+  const deleteStory = async (storyId) => {
     try {
-        const responseDelete = await axiosApi.post(`deleteStory/${e}`, {
+        const responseDelete = await axiosApi.post(`deleteStory/${storyId}`, {
           childId,
         });
         if (responseDelete.status === 200) {
@@ -47,7 +47,7 @@ const AdminPage = () => {
       </>
     );
   }
-
+  
   return (
     <>
       <Header>
@@ -63,7 +63,7 @@ const AdminPage = () => {
               description={story.description}
             >
               <Link to={`/my-stories/details/${story._id}`}>Details</Link>
-              <Button onClick={(e) => deleteStory(story._id, e)}>Delete</Button>
+              <Button onClick={() => deleteStory(story._id)}>Delete</Button>
             </Card>
           ))}
       </Container>
