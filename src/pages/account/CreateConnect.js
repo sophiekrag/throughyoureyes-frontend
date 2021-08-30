@@ -8,6 +8,9 @@ import NavBar from "../../components/NavBar";
 import Input from "../../components/Form/Input";
 import Button from "../../components/Button";
 import FieldSet from "../../components/Form/Fieldset";
+import connect from "../../img/connect2.jpg";
+import { BackgroudImage, WrapContainer } from "../../styles/HomeMyStories.styles";
+
 
 const INITIAL_CHILD = {
   firstname: "",
@@ -70,58 +73,79 @@ const CreateConnect = () => {
   return (
     <>
       <NavBar />
-      <Container>
-        <form onSubmit={handleFindChild}>
-          <FieldSet title="Connect to child profile">
-            <Input
-              placeholder="Connect to child"
-              name="id"
-              onChange={(e) => setId(e.target.value)}
-            />
-            <Button disabled={id === null && "disabled"} type="submit">Connect</Button>
-          </FieldSet>
-        </form>
-        <form onSubmit={handleOnSubmit}>
-          <FieldSet title="Create child profile">
-            <Input
-              placeholder="First name"
-              name="firstname"
-              required="required"
-              onChange={handleChange}
-            />
-            <Input
-              placeholder="Last name"
-              name="lastname"
-              required="required"
-              onChange={handleChange}
-            />
-            <Input
-              placeholder="Username"
-              name="username"
-              required="required"
-              onChange={handleChange}
-            />
-            <Input
-              placeholder="Password"
-              name="password"
-              type="password"
-              required="required"
-              onChange={handleChange}
-            />
-            <Button disabled={disabled || loading} type="submit">
-              Submit
-            </Button>
-          </FieldSet>
-        </form>
-      </Container>
+      <Img src={connect} alt="children" />
+      <Wrapper>
+        <ConnectContainer>
+          <form onSubmit={handleFindChild}>
+            <FieldSet title="Connect to child profile">
+              <Input
+                placeholder="Connect to child"
+                name="id"
+                onChange={(e) => setId(e.target.value)}
+              />
+              <Button disabled={id === null && "disabled"} type="submit">
+                Connect
+              </Button>
+            </FieldSet>
+          </form>
+        </ConnectContainer>
+        <CreateContainer>
+          <form onSubmit={handleOnSubmit}>
+            <FieldSet title="Create child profile">
+              <Input
+                placeholder="First name"
+                name="firstname"
+                required="required"
+                onChange={handleChange}
+              />
+              <Input
+                placeholder="Last name"
+                name="lastname"
+                required="required"
+                onChange={handleChange}
+              />
+              <Input
+                placeholder="Username"
+                name="username"
+                required="required"
+                onChange={handleChange}
+              />
+              <Input
+                placeholder="Password"
+                name="password"
+                type="password"
+                required="required"
+                onChange={handleChange}
+              />
+              <Button disabled={disabled || loading} type="submit">
+                Submit
+              </Button>
+            </FieldSet>
+          </form>
+        </CreateContainer>
+      </Wrapper>
     </>
   );
 };
 
-const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 80%;
+const Img = styled.img`
+ ${BackgroudImage}
+`;
+
+const Wrapper = styled.section`
+${WrapContainer}
+  width: 75%;
   margin: 0 auto;
+  margin-top: 40px;
+`;
+
+const ConnectContainer = styled.section`
+  width: 60%;
+  margin-bottom: 100px;
+  float: right;
+`;
+
+const CreateContainer = styled.section`
+  width: 60%;
 `;
 export default CreateConnect;
