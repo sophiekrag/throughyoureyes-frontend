@@ -3,8 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import axiosApi from "../../../utils/AxiosApi";
-import Navbar from "../../../components/NavBar";
-import { PageHeader } from "../../../styles/HomeMyStories.styles";
+import { PageHeader } from "../../../styles/AccountPages.styles";
+import noImage from "../../../img/noImage.jpeg"
 
 const StoryDetail = () => {
   const [story, setStory] = useState();
@@ -26,10 +26,9 @@ const StoryDetail = () => {
 
   return (
     <>
-      <Navbar />
       <Header>Story written for {story.child[0].firstname}</Header>
       <Container>
-        <Img src={story.media} alt={story.title} />
+        <Img src={story.media ? story.media : noImage} alt={story.title} />
         <TextContainer>
           <Title>{story.title}</Title>
           <Description>{story.description}</Description>

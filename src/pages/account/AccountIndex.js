@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AxiosApi from "../../utils/AxiosApi";
-import NavBar from "../../components/NavBar";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
 import children from "../../img/children.jpg";
@@ -13,7 +12,7 @@ import {
   PageHeader,
   ContainerMain,
   LinkStyle,
-} from "../../styles/HomeMyStories.styles";
+} from "../../styles/AccountPages.styles";
 
 
 const AccountIndex = () => {
@@ -32,7 +31,6 @@ const AccountIndex = () => {
 
   return (
     <>
-      <NavBar />
       <Img src={children} alt="children" />
       <Wrapper>
         <Header>
@@ -97,6 +95,7 @@ const Main = styled.section`
 const StyledLink = styled(Link)`
   ${LinkStyle}
 `;
+
 const ButtonContainer = styled.section`
   width: 50%;
   display: flex;

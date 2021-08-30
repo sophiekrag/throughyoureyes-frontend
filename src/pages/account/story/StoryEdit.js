@@ -8,7 +8,6 @@ import FieldSet from "../../../components/Form/Fieldset";
 import Input from "../../../components/Form/Input";
 import TextArea from "../../../components/Form/TextArea";
 import Button from "../../../components/Button";
-import NavBar from "../../../components/NavBar";
 import {
   MainContainer,
   ButtonInput,
@@ -94,7 +93,6 @@ const StoryEdit = () => {
 
   return (
     <>
-      <NavBar />
       <Container>
         <form onSubmit={handleOnSubmit}>
           <FieldSet title={`Edit story for ${firstname} ${lastname}`}>
