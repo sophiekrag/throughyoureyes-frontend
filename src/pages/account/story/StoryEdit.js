@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
 
 import axiosApi from "../../../utils/AxiosApi";
 import FieldSet from "../../../components/Form/Fieldset";
@@ -8,6 +9,11 @@ import Input from "../../../components/Form/Input";
 import TextArea from "../../../components/Form/TextArea";
 import Button from "../../../components/Button";
 import NavBar from "../../../components/NavBar";
+import {
+  MainContainer,
+  ButtonInput,
+  ImgContainer,
+} from "../../../styles/CreateEditStory.styles";
 
 const StoryEdit = () => {
   const [input, setInput] = useState({});
@@ -23,14 +29,14 @@ const StoryEdit = () => {
     const fetchStoryData = async () => {
       const result = await axiosApi.get(`/storyDetails/${storyId}`);
       const singleStory = await result.data;
-      setCloudinaryImg(singleStory.media)
+      setCloudinaryImg(singleStory.media);
       setStory(singleStory);
     };
     return fetchStoryData();
   }, [storyId]);
 
   const handleImageUpload = async (event) => {
-    setLoading(true)
+    setLoading(true);
     const { files } = event.target;
     const image = files[0];
 
@@ -47,7 +53,7 @@ const StoryEdit = () => {
 
     const mediaUrl = await response.data.url;
     setCloudinaryImg(mediaUrl);
-    setLoading(false)
+    setLoading(false);
   };
 
   const handleChange = (event) => {
@@ -59,7 +65,7 @@ const StoryEdit = () => {
     event.preventDefault();
     try {
       setLoading(true);
-     
+
       const response = await axiosApi.post(`editStory/${storyId}`, {
         title: story.title,
         description: story.description,
@@ -89,43 +95,62 @@ const StoryEdit = () => {
   return (
     <>
       <NavBar />
-      <form onSubmit={handleOnSubmit}>
-        <FieldSet title="Edit Story for:">
-          <h2>
-            {firstname} {lastname}
-          </h2>
-          <Input
-            placeholder="Title"
-            name="title"
-            required="required"
-            defaultValue={story.title}
-            onChange={handleChange}
-          />
-          <Input
-            placeholder="Image"
-            name="media"
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-          />
-          <img
-            src={mediaPreview ? mediaPreview : story.media}
-            alt="Media preview"
-          />
-          <TextArea
-            placeholder="Your story"
-            name="description"
-            required="required"
-            defaultValue={story.description}
-            onChange={handleChange}
-          />
-          <Button disabled={loading} type="submit">
-            Submit
-          </Button>
-        </FieldSet>
-      </form>
+      <Container>
+        <form onSubmit={handleOnSubmit}>
+          <FieldSet title={`Edit story for ${firstname} ${lastname}`}>
+            <InputContainer>
+              <Input
+                placeholder="Title"
+                name="title"
+                required="required"
+                defaultValue={story.title}
+                onChange={handleChange}
+              />
+              <Input
+                placeholder="Image"
+                name="media"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+            </InputContainer>
+            <Img
+              src={mediaPreview ? mediaPreview : story.media}
+              alt="Media preview"
+            />
+            <TextArea
+              placeholder="Your story"
+              name="description"
+              required="required"
+              defaultValue={story.description}
+              onChange={handleChange}
+            />
+            <ButtonContainer>
+              <Button disabled={loading} type="submit">
+                Submit
+              </Button>
+            </ButtonContainer>
+          </FieldSet>
+        </form>
+      </Container>
     </>
   );
 };
+
+const Container = styled.section`
+  ${MainContainer}
+`;
+
+const InputContainer = styled.section`
+  ${ButtonInput}
+`;
+
+const Img = styled.img`
+  ${ImgContainer}
+`;
+
+const ButtonContainer = styled.section`
+  ${ButtonInput}
+`;
 
 export default StoryEdit;

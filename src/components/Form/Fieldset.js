@@ -16,14 +16,18 @@ const Container = styled.fieldset`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  padding: 0.5rem 1.2rem;
+  padding: 2rem 1.2rem;
   border: none;
+  background: white;
+  box-shadow: 4px 5px 20px 1px black;
 `;
 
 const Title = styled.h1`
   width: 100%;
+  font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
+  color:  ${({ theme }) => theme.color.mainGreen};
 `;
 
 export default FieldSet;

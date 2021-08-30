@@ -5,6 +5,16 @@ import AxiosApi from "../../utils/AxiosApi";
 import NavBar from "../../components/NavBar";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
+import children from "../../img/children.jpg";
+import admin from "../../img/admin.png";
+import {
+  BackgroudImage,
+  WrapContainer,
+  PageHeader,
+  ContainerMain,
+  LinkStyle,
+} from "../../styles/HomeMyStories.styles";
+
 
 const AccountIndex = () => {
   const [myChildren, setMyChildren] = useState([]);
@@ -23,63 +33,75 @@ const AccountIndex = () => {
   return (
     <>
       <NavBar />
-
-      <Header>
-        <h1>Welcome {user.username}</h1>
-        {myChildren.length === 0 && (
-          <p>
-            You're not connected to a child yet. Click{" "}
-            <Link to="/create-connect">here</Link> to connect to a child or
-            create a child profile yourself.
-          </p>
-        )}
-        {myChildren.length > 0 && (
-          <p>Pick a child profile and start creating memories</p>
-        )}
-      </Header>
-      <Container>
-        {myChildren.length > 0 &&
-          myChildren.map((child) => (
-            <Card
-              key={child._id}
-              title={child.username}
-              description={`${child.firstname} ${child.lastname}`}
-            >
-              <ButtonContainer>
+      <Img src={children} alt="children" />
+      <Wrapper>
+        <Header>
+          <h1>Welcome {user.username}</h1>
+          {myChildren.length === 0 && (
+            <p>
+              You're not connected to a child yet. Click{" "}
+              <Link to="/create-connect">here</Link> to connect to a child or
+              create a child profile yourself.
+            </p>
+          )}
+          {myChildren.length > 0 && (
+            <p>Pick a child profile and start creating memories. </p>
+          )}
+        </Header>
+        <Main>
+          {myChildren.length > 0 &&
+            myChildren.map((child) => (
+              <Card
+                key={child._id}
+                title={`${child.firstname} ${child.lastname}`}
+                description={child.username}
+              >
                 {user._id === child.creator[0] && (
-                  <Button
-                    btnType="secondary"
-                    to={`/child-profile/${child._id}`}
-                  >
+                  <StyledLink to={`/child-profile/${child._id}`}>
                     admin
-                  </Button>
+                    <Icon src={admin} alt="admin" />
+                  </StyledLink>
                 )}
-                <Button to={`/create-story/${child._id}`}>Create story</Button>
-              </ButtonContainer>
-            </Card>
-          ))}
-      </Container>
+                <ButtonContainer>
+                  <Button to={`/create-story/${child._id}`}>
+                    Create story
+                  </Button>
+                </ButtonContainer>
+              </Card>
+            ))}
+        </Main>
+      </Wrapper>
     </>
   );
 };
 
+const Img = styled.img`
+  ${BackgroudImage}
+`;
+
+const Icon = styled.img`
+  width: 20%;
+`;
+
+const Wrapper = styled.section`
+  ${WrapContainer}
+`;
 const Header = styled.header`
-  text-align: center;
-  font-size: 1.5rem;
+  ${PageHeader}
 `;
 
-const Container = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 90%;
-  margin: 0 auto;
+const Main = styled.section`
+ ${ContainerMain}
 `;
 
+const StyledLink = styled(Link)`
+  ${LinkStyle}
+`;
 const ButtonContainer = styled.section`
-  width: 100%;
+  width: 50%;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justifly-items: center;
 `;
 
 export default AccountIndex;
