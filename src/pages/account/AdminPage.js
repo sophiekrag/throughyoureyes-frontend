@@ -38,16 +38,14 @@ const AdminPage = () => {
 
   if (stories.length === 0) {
     return (
-      <>
         <p>
           There are no stories yet. Be the first to write a story and go to your{" "}
           <Link to="/account">home page</Link>, select {child.firstname} and
           start writing.
         </p>
-      </>
     );
   }
-  
+
   return (
     <>
       <Header>
