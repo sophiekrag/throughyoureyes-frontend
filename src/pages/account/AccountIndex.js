@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import AxiosApi from "../../utils/AxiosApi";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
@@ -14,10 +15,10 @@ import {
   LinkStyle,
 } from "../../styles/AccountPages.styles";
 
-
 const AccountIndex = () => {
   const [myChildren, setMyChildren] = useState([]);
   const [user, setUser] = useState("");
+
   useEffect(() => {
     const fetchUserData = async () => {
       const result = await AxiosApi("myChildren");
@@ -89,7 +90,7 @@ const Header = styled.header`
 `;
 
 const Main = styled.section`
- ${ContainerMain}
+  ${ContainerMain}
 `;
 
 const StyledLink = styled(Link)`

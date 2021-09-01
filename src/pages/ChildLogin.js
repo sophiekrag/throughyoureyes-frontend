@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 import axiosApi from "../utils/AxiosApi";
-
 import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
+import Notification from "../components/Notification";
 
 const INITIAL_CHILD = {
   username: "",
@@ -14,10 +14,11 @@ const INITIAL_CHILD = {
 
 const ChildLogin = () => {
   const [child, setChild] = useState(INITIAL_CHILD);
-  //const [childId, setChildId] = useState("")
   const [redirect, setRedirect] = useState(false)
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [statusType, setStatusType] = useState("");
 
   useEffect(() => {
     const isChild = Object.values(child).every((el) => Boolean(el));
@@ -36,11 +37,10 @@ const ChildLogin = () => {
       const response = await axiosApi.post("child/login", {
         childData: child,
       });
-      //setChildId(child._id)
-      return setRedirect(response.status === 200)      
+      setRedirect(response.status === 200)      
     } catch (error) {
-      console.log(error);
-    } finally {
+      setStatusType(error.response.status);
+      setErrorMessage(error.response.data.message);
       setLoading(false);
     }
   };
@@ -52,6 +52,14 @@ const ChildLogin = () => {
   return (
     <form onSubmit={handleOnSubmit}>
       <FieldSet title="Child Login">
+      {errorMessage && (
+            <Notification
+              onClick={() => setErrorMessage("")}
+              statusType={statusType}
+            >
+              {errorMessage}
+            </Notification>
+          )}
         <Input
           placeholder="Username"
           name="username"

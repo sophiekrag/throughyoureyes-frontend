@@ -1,34 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 
+import closeIcon from "../img/closeIcon.png"
+
 const Notification = ({ onClick, statusType = "success", children }) => {
+  if (statusType === 200) {
+    statusType = "success";
+  }
+  if (statusType > 200) {
+    statusType = "error";
+  }
+  if (statusType > 200 && statusType < 500) {
+    statusType = "warning";
+  }
   return (
     <NotificationContainer>
       <InnerContainer statusType={statusType}>
         {children}
-        {/* <Close onClick={setCloseModal}>x</Close> */}
-        <Close>x</Close>
+          <Img onClick={onClick} src={closeIcon} alt="close"/>
       </InnerContainer>
     </NotificationContainer>
   );
 };
 
 const notificationColors = {
-  success: "green",
-  error: "red",
+  success: "#89C057",
+  error: "#B33A3A",
   warning: "#f90",
 };
 
-const Close = styled.button`
-  background-color: grey;
-  width: 15px;
-  height: 15px;
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-`;
+const Img = styled.img`
+width: 20px;
+cursor: pointer;
+`
 
 const InnerContainer = styled.section`
   padding: 10px 15px;
@@ -37,6 +41,7 @@ const InnerContainer = styled.section`
   border-radius: ${({ theme }) => theme.borderRadius};
   background-color: ${({ statusType }) => notificationColors[statusType]};
   display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 80%;
   margin: 0 auto;
@@ -44,10 +49,9 @@ const InnerContainer = styled.section`
 `;
 
 const NotificationContainer = styled.article`
-  height: 100px;
+  height: 50px;
   width: 100%;
-  margin-top: 10px;
-  position: fixed;
+  position: static;
   top: 0;
   left: 0;
   right: 0;

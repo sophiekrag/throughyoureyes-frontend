@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import diary from "../img/diary.jpeg";
 import Button from "../components/Button";
 import LoginSignup from "./LoginSignup";

@@ -12,11 +12,14 @@ import {
   LinkStyle,
 } from "../../styles/AccountPages.styles";
 import noImage from "../../img/noImage.jpeg";
+import Notification from "../../components/Notification";
 
 const AdminPage = () => {
   const [stories, setStories] = useState([]);
   const [child, setChild] = useState({});
   const { childId } = useParams();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [statusType, setStatusType] = useState("");
 
   useEffect(() => {
     const childData = async () => {
@@ -39,12 +42,21 @@ const AdminPage = () => {
         setStories(childStoryData);
       }
     } catch (error) {
-      console.log(error);
+      setStatusType(error.response.status);
+      setErrorMessage(error.response.data.message);
     }
   };
 
   return (
     <Wrapper>
+    {errorMessage && (
+            <Notification
+              onClick={() => setErrorMessage("")}
+              statusType={statusType}
+            >
+              {errorMessage}
+            </Notification>
+          )}
       <Header>
         <h1>{child.firstname} {child.lastname} Admin Page</h1>
         <br />
