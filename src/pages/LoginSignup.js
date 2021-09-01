@@ -10,7 +10,9 @@ import Notification from "../components/Notification";
 const LoginSignup = ({ isPageLogin = true }) => {
   const [user, setUser] = useState({});
   const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [statusType, setStatusType] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -21,17 +23,16 @@ const LoginSignup = ({ isPageLogin = true }) => {
     const postVariant = isPageLogin ? "login" : "signup";
     event.preventDefault();
     try {
+      setLoading(true);
       const response = await axiosApi.post(postVariant, {
         userData: user,
       });
-      console.log(response)
-      if (response.status !== 200) {
-        setErrorMessage(response.message);
-      }
+      setLoading(false);
       setRedirect(response.status === 200);
     } catch (error) {
-      console.log(error);
-      setErrorMessage(error.message);
+      setStatusType(error.response.status);
+      setErrorMessage(error.response.data.message);
+      setLoading(false);
     }
   };
 
@@ -40,42 +41,47 @@ const LoginSignup = ({ isPageLogin = true }) => {
   }
 
   return (
-    <form onSubmit={handleOnSubmit}>
-     {errorMessage && <p>{errorMessage}</p>}
-      <FieldSet title={isPageLogin ? "Login" : "Signup"}>
-        {!isPageLogin && (
+    <>
+      <form onSubmit={handleOnSubmit}>
+        <FieldSet title={isPageLogin ? "Login" : "Signup"}>
+          {errorMessage && (
+            <Notification
+              onClick={() => setErrorMessage("")}
+              statusType={statusType}
+            >
+              {errorMessage}
+            </Notification>
+          )}
+          {!isPageLogin && (
+            <Input
+              placeholder="Username"
+              name="username"
+              required="required"
+              onChange={handleChange}
+            />
+          )}
           <Input
-            placeholder="Username"
-            name="username"
+            placeholder="Email"
+            name="email"
+            type="email"
             required="required"
             onChange={handleChange}
           />
-        )}
-        <Input
-          placeholder="Email"
-          name="email"
-          type="email"
-          required="required"
-          onChange={handleChange}
-        />
-        <Input
-          placeholder="Password"
-          name="password"
-          type="password"
-          required="required"
-          onChange={handleChange}
-        />
-        <section>
-          <Button type="submit">
-            Submit
-          </Button>
-        </section>
-      </FieldSet>
-
-     
-      {errorMessage &&  <Notification statusType="error">{errorMessage}</Notification> }
-    </form>
-   
+          <Input
+            placeholder="Password"
+            name="password"
+            type="password"
+            required="required"
+            onChange={handleChange}
+          />
+          <section>
+            <Button disabled={loading} type="submit">
+              Submit
+            </Button>
+          </section>
+        </FieldSet>
+      </form>
+    </>
   );
 };
 

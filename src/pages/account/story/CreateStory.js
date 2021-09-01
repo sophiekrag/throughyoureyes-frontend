@@ -13,6 +13,7 @@ import {
   ButtonInput,
   ImgContainer,
 } from "../../../styles/CreateEditStory.styles";
+import Notification from "../../../components/Notification";
 
 const CreateStory = () => {
   const [story, setStory] = useState({});
@@ -21,6 +22,8 @@ const CreateStory = () => {
   const [mediaPreview, setMediaPreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [statusType, setStatusType] = useState("");
 
   const { childId } = useParams();
 
@@ -70,8 +73,8 @@ const CreateStory = () => {
       });
       setRedirect(response.status === 200);
     } catch (error) {
-      console.log(error);
-    } finally {
+      setStatusType(error.response.status);
+      setErrorMessage(error.response.data.message);
       setLoading(false);
     }
   };
@@ -91,6 +94,14 @@ const CreateStory = () => {
           <FieldSet
             title={`Create a story for ${child.firstname} ${child.lastname}`}
           >
+            {errorMessage && (
+              <Notification
+                onClick={() => setErrorMessage("")}
+                statusType={statusType}
+              >
+                {errorMessage}
+              </Notification>
+            )}
             <InputContainer>
               <Input
                 placeholder="Title"

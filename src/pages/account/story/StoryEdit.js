@@ -13,6 +13,7 @@ import {
   ButtonInput,
   ImgContainer,
 } from "../../../styles/CreateEditStory.styles";
+import Notification from "../../../components/Notification";
 
 const StoryEdit = () => {
   const [input, setInput] = useState({});
@@ -21,6 +22,8 @@ const StoryEdit = () => {
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [mediaPreview, setMediaPreview] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [statusType, setStatusType] = useState("");
 
   const { storyId } = useParams();
 
@@ -73,10 +76,11 @@ const StoryEdit = () => {
       });
 
       const statusCode = await response.status;
+      setLoading(false)
       setRedirect(statusCode === 200);
     } catch (error) {
-      console.log(error);
-    } finally {
+      setStatusType(error.response.status);
+      setErrorMessage(error.response.data.message);
       setLoading(false);
     }
   };
@@ -96,6 +100,14 @@ const StoryEdit = () => {
       <Container>
         <form onSubmit={handleOnSubmit}>
           <FieldSet title={`Edit story for ${firstname} ${lastname}`}>
+          {errorMessage && (
+            <Notification
+              onClick={() => setErrorMessage("")}
+              statusType={statusType}
+            >
+              {errorMessage}
+            </Notification>
+          )}
             <InputContainer>
               <Input
                 placeholder="Title"

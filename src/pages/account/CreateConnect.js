@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import axiosApi from "../../utils/AxiosApi";
-
 import styled from "styled-components";
 
+import axiosApi from "../../utils/AxiosApi";
 import Input from "../../components/Form/Input";
 import Button from "../../components/Button";
 import FieldSet from "../../components/Form/Fieldset";
 import connect from "../../img/connect2.jpg";
-import { BackgroudImage, WrapContainer } from "../../styles/AccountPages.styles";
-
+import {
+  BackgroudImage,
+  WrapContainer,
+} from "../../styles/AccountPages.styles";
+import Notification from "../../components/Notification";
 
 const INITIAL_CHILD = {
   firstname: "",
@@ -22,8 +24,11 @@ const CreateConnect = () => {
   const [child, setChild] = useState(INITIAL_CHILD);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState(null);
+  const [childId, setChildId] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [errorMessageConnect, setErrorMessageConnect] = useState("");
+  const [errorMessageCreate, setErrorMessageCreate] = useState("");
+  const [statusType, setStatusType] = useState("");
 
   useEffect(() => {
     const isChild = Object.values(child).every((el) => Boolean(el));
@@ -40,13 +45,14 @@ const CreateConnect = () => {
     try {
       setLoading(true);
       const result = await axiosApi.post("findChild", {
-        id,
+        childId,
       });
-      return setRedirect(result.status === 200);
+      setLoading(false);
+      setRedirect(result.status === 200);
     } catch (error) {
-      console.log(error);
-    } finally {
-      return setLoading(false);
+      setStatusType(error.response.status);
+      setErrorMessageConnect(error.response.data.message);
+      setLoading(false);
     }
   };
 
@@ -57,11 +63,12 @@ const CreateConnect = () => {
       const result = await axiosApi.post("createchild", {
         childData: child,
       });
-      return setRedirect(result.status === 200);
+      setLoading(false);
+      setRedirect(result.status === 200);
     } catch (error) {
-      console.log(error);
-    } finally {
-      return setLoading(false);
+      setStatusType(error.response.status);
+      setErrorMessageCreate(error.response.data.message);
+      setLoading(false);
     }
   };
 
@@ -76,12 +83,20 @@ const CreateConnect = () => {
         <ConnectContainer>
           <form onSubmit={handleFindChild}>
             <FieldSet title="Connect to child profile">
+              {errorMessageConnect && (
+                <Notification
+                  onClick={() => setErrorMessageConnect("")}
+                  statusType={statusType}
+                >
+                  {errorMessageConnect}
+                </Notification>
+              )}
               <Input
                 placeholder="Connect to child"
                 name="id"
-                onChange={(e) => setId(e.target.value)}
+                onChange={(e) => setChildId(e.target.value)}
               />
-              <Button disabled={id === null && "disabled"} type="submit">
+              <Button disabled={childId === null && "disabled"} type="submit">
                 Connect
               </Button>
             </FieldSet>
@@ -90,6 +105,14 @@ const CreateConnect = () => {
         <CreateContainer>
           <form onSubmit={handleOnSubmit}>
             <FieldSet title="Create child profile">
+              {errorMessageCreate && (
+                <Notification
+                  onClick={() => setErrorMessageCreate("")}
+                  statusType={statusType}
+                >
+                  {errorMessageCreate}
+                </Notification>
+              )}
               <Input
                 placeholder="First name"
                 name="firstname"
@@ -127,11 +150,11 @@ const CreateConnect = () => {
 };
 
 const Img = styled.img`
- ${BackgroudImage}
+  ${BackgroudImage}
 `;
 
 const Wrapper = styled.section`
-${WrapContainer}
+  ${WrapContainer}
   width: 75%;
   margin: 0 auto;
   margin-top: 40px;
