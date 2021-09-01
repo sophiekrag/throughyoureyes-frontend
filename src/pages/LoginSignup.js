@@ -1,34 +1,16 @@
-import React, { useState, useEffect } from "react";
-
-import axiosApi from "../utils/AxiosApi";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 
+import axiosApi from "../utils/AxiosApi";
 import FieldSet from "../components/Form/Fieldset";
 import Input from "../components/Form/Input";
 import Button from "../components/Button";
+import Notification from "../components/Notification";
 
-const INITIAL_USER = {
-  email: "",
-  password: "",
-};
-
-const INIT_SIGNUP_USER = {
-  username: "",
-};
-
-const LoginSignup = ({ isPageLogin = false }) => {
-  const [user, setUser] = useState({
-    ...INITIAL_USER,
-    ...(!isPageLogin && INIT_SIGNUP_USER),
-  });
-  const [disabled, setDisabled] = useState(true);
-  const [loading, setLoading] = useState(false);
+const LoginSignup = ({ isPageLogin = true }) => {
+  const [user, setUser] = useState({});
   const [redirect, setRedirect] = useState(false);
-
-  useEffect(() => {
-    const isUser = Object.values(user).every((el) => Boolean(el));
-    return setDisabled(!isUser);
-  }, [user]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,15 +21,17 @@ const LoginSignup = ({ isPageLogin = false }) => {
     const postVariant = isPageLogin ? "login" : "signup";
     event.preventDefault();
     try {
-      setLoading(true);
       const response = await axiosApi.post(postVariant, {
         userData: user,
       });
-      return setRedirect(response.status === 200);
+      console.log(response)
+      if (response.status !== 200) {
+        setErrorMessage(response.message);
+      }
+      setRedirect(response.status === 200);
     } catch (error) {
-      console.log(error)
-    } finally {
-      return setLoading(false);
+      console.log(error);
+      setErrorMessage(error.message);
     }
   };
 
@@ -57,6 +41,7 @@ const LoginSignup = ({ isPageLogin = false }) => {
 
   return (
     <form onSubmit={handleOnSubmit}>
+     {errorMessage && <p>{errorMessage}</p>}
       <FieldSet title={isPageLogin ? "Login" : "Signup"}>
         {!isPageLogin && (
           <Input
@@ -81,12 +66,16 @@ const LoginSignup = ({ isPageLogin = false }) => {
           onChange={handleChange}
         />
         <section>
-          <Button disabled={disabled || loading} type="submit">
+          <Button type="submit">
             Submit
           </Button>
         </section>
       </FieldSet>
+
+     
+      {errorMessage &&  <Notification statusType="error">{errorMessage}</Notification> }
     </form>
+   
   );
 };
 
