@@ -11,7 +11,7 @@ const NavBar = () => {
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      await axiosApi.post("logout");
+      await axiosApi.post("logout/child");
       setRedirect(true);
     } catch (error) {
       console.log(error);
@@ -24,19 +24,7 @@ const NavBar = () => {
 
   return (
     <Container>
-      <NavUl>
-        <li>
-          <StyledLink to="/account">Home</StyledLink>
-        </li>
-        <li>
-          <StyledLink to="/create-connect">
-            Create / Connect to child profile
-          </StyledLink>
-        </li>
-        <li>
-          <StyledLink to="/my-stories">My stories</StyledLink>
-        </li>
-      </NavUl>
+      <StyledLink to="/childProfile">Through your eyes</StyledLink>
       <StyledForm onSubmit={handleLogout}>
         <Button type="submit" btnType="secondary">
           Logout
@@ -52,14 +40,6 @@ const Container = styled.section`
   margin-bottom: 0px;
   border-bottom: 3px solid ${({ theme }) => theme.color.mainGreen};
   background: ${({ theme }) => theme.color.mainWhite};
-`;
-
-const NavUl = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
 `;
 
 const StyledLink = styled(Link)`

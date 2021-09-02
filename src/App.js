@@ -5,6 +5,7 @@ import  { ThemeProvider } from "styled-components";
 import GlobalStyles, { theme } from "./utils/GlobalStyles";
 import Home from "./pages/Home";
 import PrivateRoute from "./utils/PrivateRoute";
+import ChildPrivateRoute from "./utils/childProfile/ChildPrivateRoute";
 import CreateConnect from "./pages/account/CreateConnect";
 import LoginSignup from "./pages/LoginSignup";
 import ChildLogin from "./pages/ChildLogin";
@@ -16,11 +17,14 @@ import StoryEdit from "./pages/account/story/StoryEdit";
 import AuthContext from "./utils/AuthContext";
 import AdminPage from "./pages/account/AdminPage";
 import ChildProfile from "./pages/childProfile/ChildProfile";
+import ChildStoryDetail from "./pages/childProfile/ChildStoryDetail";
+import ChildAuthContext from "./utils/childProfile/ChildAuthContext";
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <AuthContext>
+      <ChildAuthContext>
         <GlobalStyles />
         <Router>
           <Switch>
@@ -57,11 +61,15 @@ const App = () => {
             <Route path="/child/login">
               <ChildLogin />
             </Route>
-            <Route path="/childProfile">
+            <ChildPrivateRoute exact path="/childProfile">
               <ChildProfile />
-            </Route>
+            </ChildPrivateRoute>
+            <ChildPrivateRoute path="/childProfile/details/:storyId">
+              <ChildStoryDetail/>
+            </ChildPrivateRoute>
           </Switch>
         </Router>
+        </ChildAuthContext>
       </AuthContext>
     </ThemeProvider>
   );

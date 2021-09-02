@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
+import styled from "styled-components";
 
 import axiosApi from "../utils/AxiosApi";
 import FieldSet from "../components/Form/Fieldset";
@@ -14,7 +15,7 @@ const INITIAL_CHILD = {
 
 const ChildLogin = () => {
   const [child, setChild] = useState(INITIAL_CHILD);
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -37,7 +38,7 @@ const ChildLogin = () => {
       const response = await axiosApi.post("child/login", {
         childData: child,
       });
-      setRedirect(response.status === 200)      
+      setRedirect(response.status === 200);
     } catch (error) {
       setStatusType(error.response.status);
       setErrorMessage(error.response.data.message);
@@ -46,13 +47,14 @@ const ChildLogin = () => {
   };
 
   if (redirect) {
-    return <Redirect to={`/childProfile/${child._id}`}/>;
+    return <Redirect to={`/childProfile`} />;
   }
 
   return (
-    <form onSubmit={handleOnSubmit}>
-      <FieldSet title="Child Login">
-      {errorMessage && (
+    <Container>
+      <form onSubmit={handleOnSubmit}>
+        <FieldSet title="Child Login">
+          {errorMessage && (
             <Notification
               onClick={() => setErrorMessage("")}
               statusType={statusType}
@@ -60,28 +62,35 @@ const ChildLogin = () => {
               {errorMessage}
             </Notification>
           )}
-        <Input
-          placeholder="Username"
-          name="username"
-          type="username"
-          required="required"
-          onChange={handleChange}
-        />
-        <Input
-          placeholder="Password"
-          name="password"
-          type="password"
-          required="required"
-          onChange={handleChange}
-        />
-        <section>
-          <Button disabled={disabled || loading} type="submit">
-            Submit
-          </Button>
-        </section>
-      </FieldSet>
-    </form>
+          <Input
+            placeholder="Username"
+            name="username"
+            type="username"
+            required="required"
+            onChange={handleChange}
+          />
+          <Input
+            placeholder="Password"
+            name="password"
+            type="password"
+            required="required"
+            onChange={handleChange}
+          />
+          <section>
+            <Button disabled={disabled || loading} type="submit">
+              Submit
+            </Button>
+          </section>
+        </FieldSet>
+      </form>
+    </Container>
   );
 };
+
+const Container = styled.section`
+width: 80%;
+padding: 75px;
+margin: 0 auto;
+`
 
 export default ChildLogin;
