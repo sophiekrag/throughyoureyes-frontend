@@ -12,13 +12,17 @@ Finally all the stories you have written will be visable on the my stories page,
 **Let start creating memories!**
 
 ## What is it build with
-The frontend is built with React and the image upload is through cloudinary.
+The frontend is built with:
+*React
+*Styled components 
+Image upload:
+*Cloudinary
 
 ## How to run the app
 Create a cloudinary account for the upload of the images.
 Create the backend with https://github.com/sophiekrag/throughyoureyes-backend
 
-Add your REACT_APP_CLOUDINARY_URL and REACT_APP_AXIOS_URL credentials to the .env file
+Add your `REACT_APP_CLOUDINARY_URL` and `REACT_APP_AXIOS_URL` credentials to the .env file
 
 ```
 # Install dependencies
