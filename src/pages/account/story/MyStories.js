@@ -30,13 +30,18 @@ const MyStories = () => {
   };
 
   const deleteStory = async (storyId) => {
-    try {
-      const responseDelete = await axiosApi.post(`deleteStory/${storyId}`);
-      if (responseDelete.status === 200) {
-        fetchUserData();
+    const answer = window.confirm("Save data?");
+    if (answer) {
+      try {
+        const responseDelete = await axiosApi.post(`deleteStory/${storyId}`);
+        if (responseDelete.status === 200) {
+          fetchUserData();
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      return;
     }
   };
 
