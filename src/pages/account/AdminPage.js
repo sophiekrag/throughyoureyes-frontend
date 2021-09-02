@@ -32,33 +32,40 @@ const AdminPage = () => {
   }, [childId]);
 
   const deleteStory = async (storyId) => {
-    try {
-      const responseDelete = await axiosApi.post(`deleteStory/${storyId}`, {
-        childId,
-      });
-      if (responseDelete.status === 200) {
-        const getChildData = await axiosApi(`/getChild/${childId}`);
-        const childStoryData = await getChildData.data.stories;
-        setStories(childStoryData);
+    var answer = window.confirm("Save data?");
+    if (answer) {
+      try {
+        const responseDelete = await axiosApi.post(`deleteStory/${storyId}`, {
+          childId,
+        });
+        if (responseDelete.status === 200) {
+          const getChildData = await axiosApi(`/getChild/${childId}`);
+          const childStoryData = await getChildData.data.stories;
+          setStories(childStoryData);
+        }
+      } catch (error) {
+        setStatusType(error.response.status);
+        setErrorMessage(error.response.data.message);
       }
-    } catch (error) {
-      setStatusType(error.response.status);
-      setErrorMessage(error.response.data.message);
+    } else {
+      return;
     }
   };
 
   return (
     <Wrapper>
-    {errorMessage && (
-            <Notification
-              onClick={() => setErrorMessage("")}
-              statusType={statusType}
-            >
-              {errorMessage}
-            </Notification>
-          )}
+      {errorMessage && (
+        <Notification
+          onClick={() => setErrorMessage("")}
+          statusType={statusType}
+        >
+          {errorMessage}
+        </Notification>
+      )}
       <Header>
-        <h1>{child.firstname} {child.lastname} Admin Page</h1>
+        <h1>
+          {child.firstname} {child.lastname} Admin Page
+        </h1>
         <br />
         <HeaderInfo>
           <h2>Info</h2>
@@ -69,17 +76,17 @@ const AdminPage = () => {
           <strong> Username: {child.username}</strong>
         </HeaderInfo>
       </Header>
-      
+
       {stories.length === 0 && (
         <NoStoryBox>
-        <p>
-          There are no stories yet. Be the first to write a story and go to your{" "}
-          <HomeLink to="/account">home page</HomeLink>, select {child.firstname} and
-          start writing.
-        </p>
+          <p>
+            There are no stories yet. Be the first to write a story and go to
+            your <HomeLink to="/account">home page</HomeLink>, select{" "}
+            {child.firstname} and start writing.
+          </p>
         </NoStoryBox>
       )}
-      
+
       <Container>
         {stories.length > 0 &&
           stories.map((story) => (
@@ -132,14 +139,14 @@ const ButtonContainer = styled.section`
 `;
 
 const NoStoryBox = styled.section`
-  background-color: ${({theme}) => theme.color.mainGrey};
-  color: ${({theme}) => theme.color.mainWhite};
+  background-color: ${({ theme }) => theme.color.mainGrey};
+  color: ${({ theme }) => theme.color.mainWhite};
   padding: 25px;
   width: 30%;
   font-size: 1.5rem;
-`
+`;
 
 const HomeLink = styled(Link)`
-color: ${({theme}) => theme.color.mainWhite}
-`
+  color: ${({ theme }) => theme.color.mainWhite};
+`;
 export default AdminPage;

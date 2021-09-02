@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import diary from "../img/diary.jpeg";
+import diary from "../img/diary.jpg";
 import Button from "../components/Button";
 import LoginSignup from "./LoginSignup";
 
@@ -59,6 +59,7 @@ const Header = styled.h1`
 `;
 const Img = styled.img`
   width: 150px;
+  height: 100px;
   border-radius: 50px;
 `;
 
