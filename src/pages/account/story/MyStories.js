@@ -56,14 +56,13 @@ const MyStories = () => {
       <Wrapper>
         <Header>
           <h1>{user.username}'s Stories</h1>
-          {myStories.length === 0 && (
+          {myStories.length === 0 ? (
             <p>
               You haven't created any stories yet, go to your{" "}
               <Link to="/account">home page</Link> and select a child you would
               like to create a story for.
             </p>
-          )}
-          {myStories.length > 0 && (
+          ) : (
             <p>
               These are the stories you wrote. Check out the details or edit the
               story if you like. Not happy with you story? Just press the delete

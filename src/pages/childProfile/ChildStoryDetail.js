@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 
-import axiosApi from "../../../utils/AxiosApi";
-import { PageHeader } from "../../../styles/AccountPages.styles";
-import noImage from "../../../img/noImage.jpeg";
+import axiosApi from "../../utils/AxiosApi";
+import { PageHeader } from "../../styles/AccountPages.styles";
+import noImage from "../../img/noImage.jpeg";
 
-const StoryDetail = () => {
+const ChildStoryDetail = () => {
   const [story, setStory] = useState();
   const { storyId } = useParams();
 
@@ -25,7 +25,7 @@ const StoryDetail = () => {
 
   return (
     <>
-      <Header>Story written for {story.child[0].firstname}</Header>
+      <Header>Story written by {story.creator[0].username}</Header>
       <Container>
         <Img src={story.media ? story.media : noImage} alt={story.title} />
         <TextContainer>
@@ -33,7 +33,7 @@ const StoryDetail = () => {
           <Description>{story.description}</Description>
         </TextContainer>
       </Container>
-      <StyledLink to={`/my-stories`}>Go back</StyledLink>
+      <StyledLink to={`/childProfile`}>Go back</StyledLink>
     </>
   );
 };
@@ -82,4 +82,4 @@ const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.color.mainGreen};
 `;
 
-export default StoryDetail;
+export default ChildStoryDetail;
