@@ -1,28 +1,41 @@
 # My life through your eyes
+
 ## Introduction
 Welcome to the **Through your eyes app**.
 For my final project at Ironhack I've decided to make an app where parents, grandparents, uncles, aunts, babysitters, etc. can write small memories about a childs day.
+
 ## Description
-The frontend is built with React
-This is a basic CRUD app made with node.js & express
-In this app you can read stories other users wrote or write some yourself if you're logged in.
-The users can decide if they want to have the stories they wrote public or private, edit the stories and ofcourse delete the stories.
+When a user is logged in they can see all the child profiles they're connected to. For each of those children they can write stories and add images. 
+To connect with a child profile you need an unique id code. This the users can get from the person who has created a child profile. Ofcourse each user can also create an own child profile for their kids. Whenever you have created a child profile you will be able to read all the stories people wrote for your child. Don't think the story is appropriate? As an admin of that child you can also delete any story.
+Finally all the stories you have written will be visable on the my stories page, here you can edit the stories, see the details and delete stories.
+
+**Let start creating memories!**
+
+## What is it build with
+The frontend is built with React and the image upload is through cloudinary.
 
 ## How to run the app
+Create a cloudinary account for the upload of the images.
+Create the backend with https://github.com/sophiekrag/throughyoureyes-backend
 
-Add your PORT, MONGODB_URI and SESS_SECRET credentials to the .env file
+Add your REACT_APP_CLOUDINARY_URL and REACT_APP_AXIOS_URL credentials to the .env file
 
 ```
 # Install dependencies
 npm install
 
-# Run in development
-npm run dev
+# Run the app
+npm run start
 
-# Run in production
-npm start
 ```
 
 ## Suggestions
+I would love to hear suggestions and improvements for the code, that way I can learn even more.
 
-Let me know if you have suggestions to improve the code, I would love to hear it and learn even more!
+### Information
+```
+{
+    author: 'Sophie Krag',
+    github: 'https://github.com/sophiekrag'
+}
+```
