@@ -45,16 +45,6 @@ const MyStories = () => {
     }
   };
 
-  if (myStories.length === 0) {
-    return (
-      <p>
-        You haven't created any stories yet, go to your{" "}
-        <Link to="/account">home page</Link> and select a child you would like
-        to create a story for.
-      </p>
-    );
-  }
-
   return (
     <>
       <Img src={library} alt="children" />
