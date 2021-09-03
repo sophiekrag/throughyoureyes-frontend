@@ -32,7 +32,7 @@ const AdminPage = () => {
   }, [childId]);
 
   const deleteStory = async (storyId) => {
-    var answer = window.confirm("Save data?");
+    const answer = window.confirm("Are you sure you want to delete this memory?");
     if (answer) {
       try {
         const responseDelete = await axiosApi.post(`deleteStory/${storyId}`, {

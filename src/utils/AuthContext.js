@@ -8,7 +8,7 @@ const AuthContext = ({ children }) => {
 
   const isLoggedIn = async () => {
     try {
-      const result = await axiosApi.get("checkAuth");
+      const result = await axiosApi("checkAuth");
       setIsAuth(result.status === 200);
     } catch (error) {
       console.log(error);
