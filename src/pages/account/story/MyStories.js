@@ -16,7 +16,7 @@ import noImage from "../../../img/noImage.jpeg";
 
 const MyStories = () => {
   const [myStories, setMyStories] = useState([]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     return fetchUserData();
@@ -24,8 +24,8 @@ const MyStories = () => {
 
   const fetchUserData = async () => {
     const myStoriesResult = await axiosApi("myStories");
-    const user = await myStoriesResult.data;
-    setUser(user);
+    const thisUser = await myStoriesResult.data;
+    setUser(thisUser);
     setMyStories(myStoriesResult.data.stories);
   };
 
